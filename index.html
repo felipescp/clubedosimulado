@@ -294,6 +294,33 @@ body.dark .aud-enunciado{color:#d0d4e0}
 body.dark .aud-exp{background:#1a1d26;border-color:#2a2d3a;color:#8a8fa8}
 body.dark .rba{background:#1e2128;border-color:#2e3140;color:#a0a8c0}
 body.dark .rba.o{border-color:#4a6cf7;color:#7a9cf7}
+  /* ── MODAL DE EXPORTAÇÃO SELETIVA ── */
+.mod-exp-list {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  max-height: 40vh; overflow-y: auto;
+  border: 1px solid #eee; border-radius: 8px; padding: 0.5rem;
+}
+body.dark .mod-exp-list { border-color: #2a2d3a; }
+.mod-exp-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.5rem; border-radius: 6px; cursor: pointer;
+  background: #fafafa; border: 1px solid #f0f0f0;
+}
+.mod-exp-item:hover { border-color: #4a6cf7; }
+body.dark .mod-exp-item { background: #1a1d26; border-color: #252830; }
+body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
+.mod-exp-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+.mod-exp-name { font-size: 14px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── CORREÇÕES DE MODO ESCURO (Prioridade Máxima) ── */
+body.dark .qn { color: #8a8fa8 !important; }
+body.dark .bg h3 { color: #8a8fa8 !important; }
+body.dark .nb { background: #2a2d3a !important; border-color: #3a3d50 !important; color: #a0a8c0 !important; }
+body.dark .nb.nr { background: #2a2d3a !important; color: #707590 !important; }
+body.dark .nb.nr:hover { border-color: #4a6cf7 !important; color: #7a9cf7 !important; }
+body.dark .qe { color: #e8eaf0 !important; }
+body.dark #sb-toggle, body.dark #top-toggle { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
+body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
 </style>
 </head>
 <body>
@@ -302,7 +329,7 @@ body.dark .rba.o{border-color:#4a6cf7;color:#7a9cf7}
   <button class="b1" id="b1-limpar" disabled>Limpar simulado</button>
   <div class="b1sep"></div>
   <button class="b1 p" id="b1-novo">+ Novo simulado</button>
-  <button class="b1" id="b1-export">Exportar JSON</button>
+  <button class="b1" id="b1-export-novo" onclick="abrirModalExportacao()">Exportar JSON</button>
   <label class="b1" style="cursor:pointer">Importar JSON<input type="file" accept=".json" id="b1-import" style="display:none"></label>
   <button class="b1" id="b1-reset">↺ Nova sessão</button>
   <button class="b1 w" id="b1-tema">☀</button>
@@ -1154,46 +1181,155 @@ function fecharSb(){
 
 function novoSim(){C={nome:'',tipo:'ce',cegas:false};D={blocos:[],res:{},fin:{},caderno:[]};QA=null;g('cfg-nome').value='';g('cfg-ok').disabled=true;g('paste-area').value='';g('paste-st').textContent='Aguardando...';g('tela-simulado').style.display='none';tela('tela-config');renderSessoesConfig();}
 
-function exportarJSON(){
-  if(!SIMS.length){alert('Nenhum simulado para exportar.');return;}
-  if(SI>=0&&SIMS[SI]){SIMS[SI].dados=JSON.parse(JSON.stringify(D));SIMS[SI].qSalva=QA;}
-  var json=JSON.stringify({versao:1,exportadoEm:new Date().toISOString(),sims:SIMS,si:SI},null,2);
-  var blob=new Blob([json],{type:'application/json'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;
-  a.download='simulados-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},0);
+// ── EXPORTAÇÃO SELETIVA ──
+function abrirModalExportacao() {
+  if (!SIMS.length) {
+    mostrarModal({ titulo: 'Exportar', mensagem: 'Nenhum simulado ativo para exportar.', botoes: [{ label: 'OK', cor: '#4a6cf7', cb: null }] });
+    return;
+  }
+  
+  // Salva o estado atual do simulado em andamento antes de exportar
+  if (SI >= 0 && SIMS[SI]) {
+    SIMS[SI].dados = JSON.parse(JSON.stringify(D));
+    SIMS[SI].qSalva = QA;
+  }
+
+  var dark = document.body.classList.contains('dark');
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
+  
+  var box = document.createElement('div');
+  box.style.cssText = 'background:' + (dark ? '#1e2128' : '#fff') + ';border-radius:14px;padding:1.5rem;width:100%;max-width:450px;display:flex;flex-direction:column;gap:1rem;box-shadow:0 8px 32px rgba(0,0,0,.2)';
+  
+  var titulo = document.createElement('div');
+  titulo.style.cssText = 'font-size:16px;font-weight:600;color:' + (dark ? '#e0e2ee' : '#1a1a1a');
+  titulo.textContent = 'Selecione os simulados para exportar';
+  
+  var list = document.createElement('div');
+  list.className = 'mod-exp-list';
+  
+  SIMS.forEach(function(s, index) {
+    var label = document.createElement('label');
+    label.className = 'mod-exp-item';
+    var chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.id = 'chk-exp-' + index;
+    chk.checked = true; // Vem marcado por padrão
+    
+    var txt = document.createElement('span');
+    txt.className = 'mod-exp-name';
+    txt.textContent = s.cfg.nome || ('Simulado ' + (index + 1));
+    
+    label.appendChild(chk);
+    label.appendChild(txt);
+    list.appendChild(label);
+  });
+
+  var btnsAcao = document.createElement('div');
+  btnsAcao.style.cssText = 'display:flex; gap:0.5rem; justify-content:space-between; font-size:12px; margin-bottom: 0.5rem;';
+  
+  var btnTodos = document.createElement('span');
+  btnTodos.textContent = 'Marcar todos';
+  btnTodos.style.cssText = 'cursor:pointer; color:#4a6cf7;';
+  btnTodos.onclick = function() { list.querySelectorAll('input').forEach(i => i.checked = true); };
+  
+  var btnNenhum = document.createElement('span');
+  btnNenhum.textContent = 'Desmarcar todos';
+  btnNenhum.style.cssText = 'cursor:pointer; color:#ef4444;';
+  btnNenhum.onclick = function() { list.querySelectorAll('input').forEach(i => i.checked = false); };
+  
+  btnsAcao.appendChild(btnTodos);
+  btnsAcao.appendChild(btnNenhum);
+
+  var ft = document.createElement('div');
+  ft.style.cssText = 'display:flex;gap:.5rem;justify-content:flex-end; margin-top:0.5rem;';
+  
+  var btnBaixar = document.createElement('button');
+  btnBaixar.textContent = 'Baixar Selecionados';
+  btnBaixar.style.cssText = 'background:#4a6cf7;color:#fff;border:none;border-radius:8px;padding:.6rem 1.4rem;font-size:13px;cursor:pointer;font-weight:500';
+  btnBaixar.onclick = function() {
+    var selecionados = [];
+    SIMS.forEach(function(s, idx) {
+      if (document.getElementById('chk-exp-' + idx).checked) selecionados.push(s);
+    });
+    
+    if (!selecionados.length) {
+      alert('Selecione pelo menos um simulado.');
+      return;
+    }
+    
+    var json = JSON.stringify({ versao: 1, exportadoEm: new Date().toISOString(), sims: selecionados, si: 0 }, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'simulados-selecionados-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 0);
+    document.body.removeChild(overlay);
+  };
+  
+  var btnCancelar = document.createElement('button');
+  btnCancelar.textContent = 'Cancelar';
+  btnCancelar.style.cssText = 'background:none;border:1px solid #ddd;border-radius:8px;padding:.6rem 1.2rem;font-size:13px;cursor:pointer;color:' + (dark ? '#a0a8c0' : '#555');
+  btnCancelar.onclick = function() { document.body.removeChild(overlay); };
+  
+  ft.appendChild(btnCancelar);
+  ft.appendChild(btnBaixar);
+  
+  box.appendChild(titulo);
+  box.appendChild(btnsAcao);
+  box.appendChild(list);
+  box.appendChild(ft);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
 }
 
+// ── IMPORTAÇÃO CUMULATIVA ──
 function importarJSON(e){
-  var file=e.target.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    try{
-      var p=JSON.parse(ev.target.result);
-      // Aceitar formato novo {sims:[...]} ou legado {simulados:[...]}
-      var arr=p.sims||p.simulados||p;
-      if(!Array.isArray(arr)||!arr.length){alert('Arquivo inválido ou sem simulados.');return;}
-      SIMS=arr;
-      SI=Math.min(p.si||0,SIMS.length-1);
-      if(SI<0)SI=0;
-      var ul=SIMS[SI];
-      C=JSON.parse(JSON.stringify(ul.cfg));
-      D=JSON.parse(JSON.stringify(ul.dados));
-      QA=ul.qSalva||null;
-      HIST=SIMS.filter(function(s){return s.stats;}).map(function(s){return mkH(s,SIMS.indexOf(s));});
-      HI=HIST.length-1;
+  var file = e.target.files[0]; 
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      var p = JSON.parse(ev.target.result);
+      var arr = p.sims || p.simulados || p;
+      if(!Array.isArray(arr) || !arr.length){ alert('Arquivo inválido ou sem simulados.'); return; }
+      
+      // Lógica Cumulativa: Adiciona os novos simulados ao array existente
+      SIMS = SIMS.concat(arr);
+      
+      // Move o foco (SI) para o primeiro simulado recém-importado
+      var novoIndice = SIMS.length - arr.length;
+      SI = novoIndice;
+      
+      var ul = SIMS[SI];
+      C = JSON.parse(JSON.stringify(ul.cfg));
+      D = JSON.parse(JSON.stringify(ul.dados));
+      QA = ul.qSalva || null;
+      HIST = SIMS.filter(function(s){return s.stats;}).map(function(s){return mkH(s,SIMS.indexOf(s));});
+      HI = HIST.length - 1;
+      
       renderTabs();
-      if(ul.stats&&HI>=0){renderResultado(HI);tela('tela-resultado');}
-      else{tela(null);g('tela-simulado').style.display='flex';renderSim();renderNav();if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);}
+      
+      if(ul.stats && HI >= 0){
+        renderResultado(HI); tela('tela-resultado');
+      } else {
+        tela(null); 
+        g('tela-simulado').style.display='flex';
+        renderSim(); 
+        renderNav();
+        if(QA) setQA(QA); 
+        else if(D.blocos[0] && D.blocos[0].questoes[0]) setQA(D.blocos[0].questoes[0].id);
+      }
       autoSave();
-    }catch(ex){alert('Erro ao ler o arquivo JSON: '+ex);}
+    } catch(ex) { 
+      alert('Erro ao ler o arquivo JSON: ' + ex); 
+    }
   };
   reader.readAsText(file);
-  e.target.value='';
+  e.target.value = ''; // Reseta o input para permitir importar o mesmo arquivo novamente se necessário
 }
 
 
