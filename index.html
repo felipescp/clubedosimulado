@@ -326,15 +326,17 @@ body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
 <body>
 
 <div id="barra1">
-  <button class="b1" id="b1-limpar" disabled>Limpar simulado</button>
+<button class="b1" id="b1-limpar" disabled>Limpar simulado</button>
   <div class="b1sep"></div>
   <button class="b1 p" id="b1-novo">+ Novo simulado</button>
+  
+  <button class="b1" id="b1-biblioteca" onclick="abrirBiblioteca()" style="color:#059669; border-color:#a7f3d0; background:#ecfdf5; font-weight:500;">📚 Biblioteca</button>
+
   <button class="b1" id="b1-export-novo" onclick="abrirModalExportacao()">Exportar JSON</button>
   <label class="b1" style="cursor:pointer">Importar JSON<input type="file" accept=".json" id="b1-import" style="display:none"></label>
   <button class="b1" id="b1-reset">↺ Nova sessão</button>
   <button class="b1 w" id="b1-tema">☀</button>
 </div>
-<div id="barra2"></div>
 
 <div id="tela-config" class="tela ativa">
   <h1>Novo Simulado</h1>
@@ -1811,6 +1813,128 @@ function showBlobModal(conteudo,nome,mime){
   ft.appendChild(cb2);ft.appendChild(cl);box.appendChild(hd);box.appendChild(info);box.appendChild(ta);box.appendChild(ft);mo.appendChild(box);document.body.appendChild(mo);
   setTimeout(function(){ta.select();},100);
 }
+// ── BIBLIOTECA DE SIMULADOS (NUVEM AUTOMATIZADA) ──
+
+function abrirBiblioteca() {
+  var dark = document.body.classList.contains('dark');
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
+  
+  var box = document.createElement('div');
+  box.style.cssText = 'background:' + (dark ? '#1e2128' : '#fff') + ';border-radius:14px;padding:1.5rem;width:100%;max-width:500px;display:flex;flex-direction:column;gap:1rem;box-shadow:0 8px 32px rgba(0,0,0,.2)';
+  
+  var hdr = document.createElement('div');
+  hdr.style.cssText = 'display:flex; justify-content:space-between; align-items:center;';
+  var titulo = document.createElement('div');
+  titulo.style.cssText = 'font-size:18px;font-weight:600;color:' + (dark ? '#e0e2ee' : '#1a1a1a');
+  titulo.textContent = '📚 Biblioteca de Simulados';
+  
+  var btnFechar = document.createElement('button');
+  btnFechar.textContent = '×';
+  btnFechar.style.cssText = 'background:none;border:none;font-size:24px;cursor:pointer;color:#888;line-height:1;padding:0 5px;';
+  btnFechar.onclick = function() { document.body.removeChild(overlay); };
+  
+  hdr.appendChild(titulo);
+  hdr.appendChild(btnFechar);
+  
+  var list = document.createElement('div');
+  list.style.cssText = 'display:flex; flex-direction:column; gap:0.6rem; max-height:50vh; overflow-y:auto; padding-right:5px;';
+  list.innerHTML = '<div style="font-size:13px; color:#aaa; text-align:center; padding:2rem 0;">Carregando catálogo...</div>';
+  
+  box.appendChild(hdr);
+  box.appendChild(list);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  // Busca o catálogo que o robô do GitHub Actions vai gerar na pasta simulados
+  fetch('simulados/catalogo.json?t=' + new Date().getTime())
+    .then(function(res) {
+      if (!res.ok) throw new Error('Catálogo não encontrado. Faça o upload do primeiro simulado no GitHub.');
+      return res.json();
+    })
+    .then(function(catalogo) {
+      list.innerHTML = ''; 
+      
+      if (!catalogo || catalogo.length === 0) {
+        list.innerHTML = '<div style="font-size:13px; color:#aaa; text-align:center; padding:2rem 0;">Nenhum simulado disponível na pasta ainda.</div>';
+        return;
+      }
+
+      catalogo.forEach(function(item) {
+        var card = document.createElement('div');
+        card.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:0.8rem 1rem; border-radius:8px; border:1px solid ' + (dark ? '#2e3140' : '#e0e0e0') + '; background:' + (dark ? '#1a1d26' : '#fafafa') + ';';
+        
+        var nm = document.createElement('span');
+        nm.style.cssText = 'font-size:14px; font-weight:500; color:' + (dark ? '#a0a8c0' : '#333') + '; flex:1; padding-right:1rem;';
+        
+        // Limpa a extensão ".json" e formata o nome do arquivo para usar como título
+        var tituloLimpo = item.arquivo.replace('simulados/', '').replace('.json', '').replace(/[-_]/g, ' ');
+        tituloLimpo = tituloLimpo.replace(/\b\w/g, function(l){ return l.toUpperCase(); });
+        nm.textContent = tituloLimpo;
+        
+        var btnBaixar = document.createElement('button');
+        btnBaixar.textContent = 'Baixar e Abrir';
+        btnBaixar.style.cssText = 'background:#4a6cf7; color:#fff; border:none; border-radius:6px; padding:0.4rem 0.8rem; font-size:12px; font-weight:500; cursor:pointer; white-space:nowrap;';
+        
+        btnBaixar.onclick = function() {
+          var btnOriginalTxt = btnBaixar.textContent;
+          btnBaixar.textContent = 'Baixando...';
+          btnBaixar.style.opacity = '0.7';
+          btnBaixar.disabled = true;
+          
+          fetch(item.arquivo + '?t=' + new Date().getTime())
+            .then(function(res) {
+              if (!res.ok) throw new Error('Arquivo não encontrado.');
+              return res.json();
+            })
+            .then(function(data) {
+              var arr = data.sims || data.simulados || data;
+              if(!Array.isArray(arr) || !arr.length) throw new Error('Formato inválido.');
+              
+              // Importação cumulativa segura (não apaga os atuais)
+              SIMS = SIMS.concat(arr);
+              SI = SIMS.length - arr.length;
+              
+              var ul = SIMS[SI];
+              C = JSON.parse(JSON.stringify(ul.cfg));
+              D = JSON.parse(JSON.stringify(ul.dados));
+              QA = ul.qSalva || null;
+              HIST = SIMS.filter(function(s){return s.stats;}).map(function(s){return mkH(s,SIMS.indexOf(s));});
+              HI = HIST.length - 1;
+              
+              renderTabs();
+              
+              if(ul.stats && HI >= 0){
+                renderResultado(HI); tela('tela-resultado');
+              } else {
+                tela(null); 
+                g('tela-simulado').style.display='flex';
+                renderSim(); 
+                renderNav();
+                if(QA) setQA(QA); 
+                else if(D.blocos[0] && D.blocos[0].questoes[0]) setQA(D.blocos[0].questoes[0].id);
+              }
+              autoSave();
+              document.body.removeChild(overlay); 
+            })
+            .catch(function(err) {
+              alert('Erro ao baixar o simulado: ' + err.message);
+              btnBaixar.textContent = btnOriginalTxt;
+              btnBaixar.style.opacity = '1';
+              btnBaixar.disabled = false;
+            });
+        };
+        
+        card.appendChild(nm);
+        card.appendChild(btnBaixar);
+        list.appendChild(card);
+      });
+    })
+    .catch(function(err) {
+      list.innerHTML = '<div style="font-size:13px; color:#ef4444; text-align:center; padding:2rem 0;">Erro ao carregar o catálogo: ' + err.message + '</div>';
+    });
+}
+  
 </script>
 </body>
 </html>
