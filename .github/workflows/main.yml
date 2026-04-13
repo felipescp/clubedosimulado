@@ -1,0 +1,50 @@
+name: Atualizar Catalogo de Simulados
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'simulados/*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  gerar-catalogo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer o Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Gerar o arquivo catalogo.json
+        run: |
+          mkdir -p simulados
+          echo "[" > simulados/catalogo.json
+          
+          # Conta quantos arquivos JSON existem, ignorando o próprio catálogo
+          total=$(ls -1 simulados/*.json 2>/dev/null | grep -v "catalogo.json" | wc -l)
+          count=0
+          
+          if [ $total -eq 0 ]; then
+            echo "]" >> simulados/catalogo.json
+          else
+            for file in simulados/*.json; do
+              if [ "$file" = "simulados/catalogo.json" ]; then continue; fi
+              count=$((count + 1))
+              if [ $count -eq $total ]; then
+                echo "  { \"arquivo\": \"$file\" }" >> simulados/catalogo.json
+              else
+                echo "  { \"arquivo\": \"$file\" }," >> simulados/catalogo.json
+              fi
+            done
+            echo "]" >> simulados/catalogo.json
+          fi
+          
+      - name: Salvar o catálogo no repositório
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add simulados/catalogo.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: atualização do catálogo de simulados" && git push)
