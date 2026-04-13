@@ -22,6 +22,15 @@ body.dark{background:#111318;color:#e8eaf0}
 body.dark #barra1{background:#16181f;border-color:#2e3140}
 body.dark .b1{background:#1e2128;border-color:#2e3140;color:#a0a8c0}
 body.dark .b1.p{background:#4a6cf7;color:#fff}
+  /* Correções de Contraste para o Modo Escuro */
+body.dark .qn { color: #8a8fa8 !important; }
+body.dark .bg h3 { color: #8a8fa8 !important; }
+body.dark .nb { background: #2a2d3a !important; border-color: #3a3d50 !important; color: #a0a8c0 !important; }
+body.dark .nb.nr { background: #2a2d3a !important; color: #707590 !important; }
+body.dark .nb.nr:hover { border-color: #4a6cf7 !important; color: #7a9cf7 !important; }
+body.dark .qe { color: #e8eaf0 !important; }
+body.dark #sb-toggle, body.dark #top-toggle { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
+body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
 #barra2{background:#fff;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:stretch;flex-shrink:0;min-height:38px;overflow-x:auto}
 #barra2::-webkit-scrollbar{height:3px}
 #barra2::-webkit-scrollbar-thumb{background:#ddd;border-radius:99px}
@@ -356,7 +365,8 @@ body.dark .rba.o{border-color:#4a6cf7;color:#7a9cf7}
       <div id="sbnav"></div>
     </div>
     <button id="sb-toggle" onclick="toggleSb()" title="Navegação">☰</button>
-</div>
+    <button id="top-toggle" onclick="toggleTop()" title="Configurações">⚙</button>
+  </div>
 </div>
 
 <div id="tela-resultado" class="tela">
@@ -1124,14 +1134,14 @@ function toggleSb(){
 function toggleTop(){
   var btn = g('top-toggle');
   var aberto = document.body.classList.toggle('top-aberto');
-  btn.textContent = aberto ? '×' : '⚙';
+  if(btn) btn.textContent = aberto ? '×' : '⚙';
   // Opcional: fechar a barra lateral se abrir as abas para não poluir
   if(aberto && g('sb').classList.contains('open')) toggleSb();
 }
 
 // Garante que tudo fecha ao clicar no fundo escuro ou mudar de tela
 function fecharSb(){
-  var sb = g('sb'), ov = g('sb-overlay');
+  var sb = g('sb'), ov = g('sb-overlay'), btnTop = g('top-toggle');
   if(sb && sb.classList.contains('open')){
     sb.classList.remove('open');
     if(ov) ov.classList.remove('open');
@@ -1139,11 +1149,10 @@ function fecharSb(){
   }
   // Também fecha a barra superior ao clicar fora
   document.body.classList.remove('top-aberto');
-  g('top-toggle').textContent = '⚙';
+  if(btnTop) btnTop.textContent = '⚙';
 }
-}
-function novoSim(){C={nome:'',tipo:'ce',cegas:false};D={blocos:[],res:{},fin:{},caderno:[]};QA=null;g('cfg-nome').value='';g('cfg-ok').disabled=true;g('paste-area').value='';g('paste-st').textContent='Aguardando...';g('tela-simulado').style.display='none';tela('tela-config');renderSessoesConfig();}
 
+function novoSim(){C={nome:'',tipo:'ce',cegas:false};D={blocos:[],res:{},fin:{},caderno:[]};QA=null;g('cfg-nome').value='';g('cfg-ok').disabled=true;g('paste-area').value='';g('paste-st').textContent='Aguardando...';g('tela-simulado').style.display='none';tela('tela-config');renderSessoesConfig();}
 
 function exportarJSON(){
   if(!SIMS.length){alert('Nenhum simulado para exportar.');return;}
