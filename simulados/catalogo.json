@@ -1,4 +1,5 @@
 [
   { "arquivo": "simulados/SIMULADODOD.json" },
+  { "arquivo": "simulados/SóEca.json" },
   { "arquivo": "simulados/simuladoteste.json" }
 ]
