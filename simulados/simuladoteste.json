@@ -1,0 +1,418 @@
+{
+  "versao": 1,
+  "exportadoEm": "2026-04-14T03:08:34.530Z",
+  "sims": [
+    {
+      "cfg": {
+        "nome": "ECA",
+        "tipo": "ce",
+        "cegas": false
+      },
+      "dados": {
+        "blocos": [
+          {
+            "nome": "Direitos Fundamentais, Competência e Regras Processuais",
+            "questoes": [
+              {
+                "id": 1,
+                "enunciado": "Durante procedimento no Juizado da Infância e da Juventude, a Defensoria Pública apresentou manifestação fora do prazo simples, mas dentro da contagem em dobro. O juízo, aplicando o art. 152, § 2º, do ECA (que veda prazo em dobro para a Fazenda Pública e o Ministério Público), considerou a manifestação intempestiva por interpretação sistemática, sob o argumento de que a celeridade dos feitos infracionais impede a prerrogativa para todas as instituições.",
+                "gabarito": "F",
+                "explicacao": "Segundo a jurisprudência do STJ, a vedação expressa do art. 152, § 2º, do ECA limita-se à **Fazenda Pública e ao Ministério Público**. O silêncio legislativo é interpretado como escolha deliberada de **manter a prerrogativa para a Defensoria Pública**, sendo legítimo o acréscimo de prazo como medida que harmoniza a prioridade da infância com a paridade de armas, não havendo intempestividade na hipótese.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 2,
+                "enunciado": "Joana, mãe de Marcos (8 anos), ajuizou ação de modificação de guarda na comarca onde passou a residir com a criança após fugir do ex-marido por agressões. O genitor, requerendo a guarda para si, suscitou incompetência, alegando que o domicílio anterior, fixado na primeira decisão de guarda, seria o competente (Súmula 383/STJ). O juiz manteve o processo no novo domicílio da mãe.",
+                "gabarito": "V",
+                "explicacao": "O STJ entende que a **Súmula 383/STJ pode ser mitigada**. Com fundamento nos princípios da proteção integral e do **juízo imediato**, é do **melhor interesse da criança** o processamento da ação no foro em que exerce seu direito à convivência, especialmente diante de **indícios de violência doméstica**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 3,
+                "enunciado": "Maria e Pedro, divorciados, divergem sobre a viagem de sua filha menor, Clara, para o exterior, a convite dos avós maternos. Como Pedro se recusa a autorizar, Maria busca suprimento judicial do consentimento na Vara de Família, alegando que não há situação de risco, tratando-se apenas de dissenso entre os genitores.",
+                "gabarito": "F",
+                "explicacao": "O suprimento judicial para expedição de passaporte e viagem internacional de menor **insere-se na competência do Juizado da Infância e da Juventude** (art. 148, parágrafo único, \"d\", do ECA). É **desnecessária a comprovação de situação de risco** nos moldes do art. 98 do ECA para firmar essa competência.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 4,
+                "enunciado": "Em um caso envolvendo a destituição do poder familiar, o magistrado indeferiu a conversão do julgamento em diligência para a realização de um novo estudo psicossocial. Inconformada e visando maior celeridade, a Defensoria Pública impetrou habeas corpus para impugnar a decisão.",
+                "gabarito": "F",
+                "explicacao": "O STJ firmou o entendimento de que o **habeas corpus não é meio adequado** para discutir questões de direito de família, como guarda, adoção e destituição do poder familiar, nem para impugnar decisão que negou a conversão de julgamento em diligência para **estudo psicossocial**, pois demandam análise aprofundada de provas e não envolvem ameaça à liberdade de locomoção.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 5,
+                "enunciado": "Após sentença de destituição do poder familiar proferida em desfavor dos genitores de Lucas, o juízo determinou o início do estágio de convivência do menor com uma família substituta cadastrada para adoção, mesmo pendente o trânsito em julgado da decisão de destituição. A Defensoria impetrou habeas corpus para suspender o estágio.",
+                "gabarito": "F",
+                "explicacao": "O STJ entende que a notória inviabilidade de manutenção do poder familiar autoriza o **início do procedimento de adoção antes do trânsito em julgado** da sentença de destituição. Além disso, o habeas corpus não é adequado para impugnar a colocação em família substituta quando já iniciado o estágio de convivência.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 6,
+                "enunciado": "Em ação de adoção, os pais adotivos de uma criança, já inserida em estágio de convivência há mais de um ano, foram surpreendidos pelo surgimento de um parente consanguíneo que pleiteou a guarda, fundamentando-se no princípio da prioridade da família natural e extensa, alegando a preponderância absoluta dessa regra do ECA.",
+                "gabarito": "F",
+                "explicacao": "O STJ estabelece que o princípio da **prioridade da família natural/extensa não é absoluto**, sofrendo flexibilização conforme o caso concreto. Nos casos em que não há vínculo prévio com o parente e já existe **laço socioafetivo consolidado** com a família substituta, deve prevalecer o **melhor interesse da criança**, evitando-se rompimentos de vínculos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 7,
+                "enunciado": "O princípio da proteção integral assegura à criança o direito ao cuidado em saúde. Com base nisso, o Ministério Público ingressou com ação para aplicar penalidade pecuniária aos pais de uma adolescente de 11 anos que, mesmo advertidos pelo Conselho Tutelar, recusaram-se injustificadamente a vaciná-la contra a COVID-19, alegando autonomia familiar.",
+                "gabarito": "V",
+                "explicacao": "A recusa injustificada dos pais em vacinar os filhos, quando recomendada por autoridades sanitárias (como no caso da COVID-19), e após advertência, caracteriza descumprimento de dever inerente ao poder familiar, autorizando a aplicação da sanção pecuniária (**multa**) prevista no **art. 249 do ECA**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              }
+            ]
+          },
+          {
+            "nome": "Atos Infracionais e Medidas Socioeducativas",
+            "questoes": [
+              {
+                "id": 8,
+                "enunciado": "Durante julgamento de apelação em procedimento de apuração de ato infracional, a Câmara do Tribunal de Justiça, por maioria, deu provimento ao recurso da defesa para desclassificar a conduta imputada ao adolescente. O Ministério Público invocou a técnica do julgamento ampliado (art. 942 do CPC) para reverter o resultado.",
+                "gabarito": "F",
+                "explicacao": "Segundo o STJ, a técnica do art. 942 do CPC **não deve ser aplicada quando a decisão não unânime for favorável ao menor infrator**, sob pena de submetê-lo a condição mais gravosa, contrariando o dever de proteção integral. O julgamento ampliado é garantido apenas em **hipóteses de divergência desfavoráveis** ao adolescente.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 9,
+                "enunciado": "Em um procedimento para apuração de ato infracional análogo a roubo, o juiz encerrou a instrução sem realizar o interrogatório do adolescente infrator, baseando-se apenas na oitiva realizada na audiência de apresentação inicial. A defesa, em alegações finais, alegou nulidade por cerceamento de defesa, requerendo a aplicação do CPP.",
+                "gabarito": "V",
+                "explicacao": "O STJ consolidou o entendimento (Tema 1269) de que, no rito do ECA, **aplica-se subsidiariamente o art. 400 do CPP**. Portanto, além da audiência de apresentação (art. 184 do ECA), é obrigatório garantir ao adolescente o **interrogatório ao final da instrução**. A ausência gera nulidade se alegada na primeira oportunidade.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 10,
+                "enunciado": "O juiz da Infância e da Juventude, ao receber representação por ato infracional, realizou a audiência de apresentação do adolescente. Diante da confissão do jovem na própria audiência, e visando à celeridade processual, o juiz julgou imediatamente procedente a representação, aplicando medida socioeducativa de liberdade assistida, dispensando a instrução probatória.",
+                "gabarito": "F",
+                "explicacao": "De acordo com o STJ, é **vedada a atividade probatória na audiência de apresentação**, e eventual colheita de confissão nessa oportunidade **não poderá, de per se, lastrear a procedência** da representação, sendo imprescindível a instrução e o interrogatório ao final.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              }
+            ]
+          },
+          {
+            "nome": "Atos Infracionais e Medidas Socioeducativas",
+            "questoes": [
+              {
+                "id": 11,
+                "enunciado": "Em um procedimento da Vara da Infância, o juiz aplicou a João uma medida socioeducativa de internação sem termo determinado. Posteriormente, ao calcular o prazo prescricional para execução da medida, o magistrado considerou o tempo efetivo que João, à época com 17 anos, poderia cumprir até completar os 21 anos (ou seja, 4 anos).",
+                "gabarito": "F",
+                "explicacao": "Segundo a jurisprudência, tratando-se de medida aplicada sem termo, o prazo prescricional deve ter como parâmetro a **duração máxima da internação (3 anos)**, e não o tempo da medida que poderia efetivamente ser cumprida até o adolescente completar 21 anos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 12,
+                "enunciado": "Adriano cumpria medida socioeducativa de internação por um ato infracional cometido quando adolescente. Ao completar 20 anos, foi preso em flagrante e sentenciado criminalmente por um roubo. Ciente disso, o juízo da execução socioeducativa extinguiu a medida de internação, sob o fundamento de que, devido ao seu perfil agravado e idade, não restavam mais objetivos pedagógicos.",
+                "gabarito": "V",
+                "explicacao": "Nos termos do **art. 46, § 1º, da Lei nº 12.594/2012 (Lei do SINASE)** e da jurisprudência do STJ, se o **maior de 18 anos** em cumprimento de medida socioeducativa responder a processo-crime, é **válida a decisão do juízo que extingue a execução** se entender que não restam objetivos pedagógicos, cientificando-se o juízo criminal competente.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              }
+            ]
+          },
+          {
+            "nome": "Convivência Familiar e Adoção",
+            "questoes": [
+              {
+                "id": 13,
+                "enunciado": "Um casal ajuizou ação de adoção de uma criança indígena. O magistrado estadual, ao constatar a origem da criança, determinou a intimação da FUNAI e, de ofício, declinou da competência para a Justiça Federal, sob o fundamento de que a intervenção obrigatória da autarquia federal atrai a competência cível da União.",
+                "gabarito": "F",
+                "explicacao": "Conforme o STJ, a intervenção da **FUNAI, ainda que obrigatória** (art. 28, § 6º, III, do ECA), **não atrai a competência automática da Justiça Federal**. A competência continua sendo da **Justiça Estadual**, pois o procedimento de adoção trata de direito privado (melhor interesse da criança), só havendo atração federal se houvesse controvérsia sobre direitos indígenas coletivos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 14,
+                "enunciado": "Com o falecimento do filho e da nora, os avós paternos assumiram a criação da neta recém-nascida. Anos depois, requereram a adoção da criança. O Ministério Público opinou pelo indeferimento de plano, alegando que o art. 42, § 1º, do ECA proíbe terminantemente a adoção de netos pelos avós, não comportando exceções.",
+                "gabarito": "F",
+                "explicacao": "Embora a redação literal do **§ 1º do art. 42 do ECA proíba a adoção avoenga** (adoção do neto pelos avós), o STJ admite que **isso ocorra em situações excepcionais**. O dispositivo comporta mitigação para atender ao melhor interesse da criança.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 15,
+                "enunciado": "Roberto foi adotado ainda criança contra a sua vontade íntima, mas não teve meios de se opor na época. Após atingir a maioridade, ingressou com ação judicial postulando a rescisão da sentença concessiva de adoção. O juiz rejeitou o pedido liminarmente, sob o argumento de que a irrevogabilidade da adoção (art. 39, § 1º, do ECA) é uma regra de caráter absoluto.",
+                "gabarito": "F",
+                "explicacao": "O STJ consolidou que a regra da **irrevogabilidade da adoção não é absoluta**. A interpretação sistemática e teleológica do ECA autoriza a **rescisão da sentença** quando verificado que o adotado, à época da adoção, **não a desejava verdadeiramente** e, após atingir a maioridade, manifesta-se formalmente nesse sentido, visto que a manutenção não satisfaz o seu melhor interesse.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 16,
+                "enunciado": "Em um processo de adoção, a pretendente possuía 30 anos e a adolescente adotanda 16 anos, perfazendo uma diferença de idade de 14 anos entre as partes. O Ministério Público requereu o indeferimento da medida por ausência de preenchimento de requisito legal objetivo, mas o juiz, baseando-se no vínculo afetivo consolidado, deferiu a adoção.",
+                "gabarito": "V",
+                "explicacao": "O entendimento jurisprudencial do STJ preconiza que a diferença etária mínima de **16 anos** entre adotante e adotado, prevista no **art. 42, § 3º, do ECA, não é absoluta**, podendo ser relativizada dadas as peculiaridades do caso concreto e no melhor interesse do adotando.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 17,
+                "enunciado": "Viviane, passando por dificuldades financeiras, entregou sua filha Laura para adoção. Laura foi adotada por um casal, mas Viviane continuou mantendo contato próximo e afetivo com a menina. Quando Laura atingiu 18 anos, com concordância unânime, Viviane requereu judicialmente a adoção de sua própria filha biológica. O magistrado, no entanto, afirmou que o pedido é juridicamente impossível.",
+                "gabarito": "F",
+                "explicacao": "O STJ entende que a **lei não proíbe expressamente** que uma pessoa seja novamente adotada. O pedido de nova adoção formulado pela **mãe biológica** em relação à filha adotada na infância por outrem **não é juridicamente impossível**, pois a irrevogabilidade visa apenas vedar que os primeiros adotantes se arrependam.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              }
+            ]
+          },
+          {
+            "nome": "Crimes e Infrações Administrativas",
+            "questoes": [
+              {
+                "id": 18,
+                "enunciado": "Caio foi flagrado fornecendo cerveja para um adolescente de 15 anos em dezembro de 2013. Ao ser processado pelo crime previsto no art. 243 do ECA, a defesa alegou atipicidade penal, afirmando que na data dos fatos a conduta não constituía o crime em tela.",
+                "gabarito": "V",
+                "explicacao": "Segundo a **Súmula 669-STJ**, o fornecimento de bebida alcóolica a criança ou adolescente configura o **crime previsto no art. 243 do ECA** apenas após o advento da **Lei n. 13.106, de 17 de março de 2015**. Logo, a alegação defensiva está correta em virtude da irretroatividade da lei penal mais gravosa.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              },
+              {
+                "id": 19,
+                "enunciado": "Marcos foi denunciado por baixar e armazenar imagens de pornografia infantil (art. 241-B do ECA) e por disponibilizar tais imagens para terceiros na internet (art. 241-A do ECA). O magistrado condenou Marcos apenas por disponibilizar, aplicando o princípio da consunção, considerando o armazenamento um mero meio de execução para o fim de disponibilizar.",
+                "gabarito": "F",
+                "explicacao": "Os tipos penais dos **arts. 241-A e 241-B são autônomos**. O STJ entende que o crime do art. 241-B **não configura fase normal, tampouco meio de execução** para o crime do art. 241-A, o que possibilita o reconhecimento de **concurso material** de crimes.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              },
+              {
+                "id": 20,
+                "enunciado": "Tício (maior de idade) praticou crime de furto em companhia de Mévio (adolescente). Durante a instrução do crime de corrupção de menores (art. 244-B do ECA), a defesa provou que Mévio já havia praticado três atos infracionais anteriores graves, pedindo a absolvição de Tício sob o argumento de que o menor já era previamente corrompido.",
+                "gabarito": "F",
+                "explicacao": "De acordo com a **Súmula 500-STJ**, a configuração do crime previsto no art. 244-B do ECA **independe da prova da efetiva corrupção** do menor, por se tratar de **delito formal**. O fato de o adolescente já ser envolvido na criminalidade não afasta a configuração do delito.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              }
+            ]
+          }
+        ],
+        "res": {},
+        "fin": {},
+        "caderno": []
+      },
+      "stats": null,
+      "qSalva": 1,
+      "data": "2026-04-12T17:50:19.732Z"
+    },
+    {
+      "cfg": {
+        "nome": "Penal",
+        "tipo": "ce",
+        "cegas": false
+      },
+      "dados": {
+        "blocos": [
+          {
+            "nome": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão",
+            "questoes": [
+              {
+                "id": 1,
+                "enunciado": "Durante investigação criminal, a autoridade policial obteve cópia integral de um celular abandonado no local do crime. Realizado o espelhamento do aparelho, foram encontradas fotos e mensagens que incriminavam Tício. Como não havia decisão judicial autorizando o acesso aos dados, a defesa arguiu a nulidade da prova, sob a alegação de violação da cláusula de reserva de jurisdição. Nesse cenário, o STF entende que o acesso aos dados, por se tratar de encontro fortuito, prescinde de autorização judicial prévia, desde que a medida seja justificada a posteriori.",
+                "gabarito": "V",
+                "explicacao": "De acordo com o STF, a mera apreensão do aparelho celular não está sujeita à reserva de jurisdição. No caso de encontro fortuito, o acesso aos dados para esclarecer a autoria independe de consentimento ou prévia decisão judicial, desde que a medida seja **justificada posteriormente**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 2,
+                "enunciado": "Tício foi denunciado por roubo circunstanciado. A condenação se baseou, exclusivamente, no reconhecimento fotográfico realizado na fase inquisitorial e confirmado em juízo. A vítima visualizou fotos de Tício apresentadas pela autoridade policial, que, embora não tenha observado as formalidades do art. 226 do CPP, assegurou a inexistência de dúvidas. Nesse caso, a condenação deve ser mantida em respeito ao livre convencimento motivado do juiz.",
+                "gabarito": "F",
+                "explicacao": "O STJ consolidou o entendimento de que a inobservância do procedimento descrito no **art. 226 do CPP torna inválido o reconhecimento** da pessoa suspeita, não podendo fundamentar condenação, mesmo se confirmado em juízo. A prova exige corroboração por **elementos autônomos**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 3,
+                "enunciado": "Durante uma operação contra o tráfico de drogas, policiais militares visualizaram Caio em via pública. Ao perceber a aproximação da viatura, Caio demonstrou extremo nervosismo e tentou evadir-se do local. Os policiais o abordaram e, em busca pessoal, encontraram entorpecentes. Em juízo, a defesa alegou a ilicitude da prova, sob o argumento de que o nervosismo não configura fundada suspeita. A alegação defensiva deve prosperar, pois o nervosismo e a fuga repentina não constituem, por si sós, justa causa para a busca pessoal sem mandado.",
+                "gabarito": "F",
+                "explicacao": "O STJ entende que o **nervosismo ao avistar a guarnição policial pode caracterizar fundadas razões** para a busca pessoal. A fuga correndo repentinamente também configura fundada suspeita, embora exija especial escrutínio do juiz quanto à narrativa dos policiais.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 4,
+                "enunciado": "Em investigação sobre o crime de tráfico de drogas, a autoridade policial instalou uma câmera em um poste de energia elétrica, voltada para uma via pública, com o objetivo de monitorar a movimentação de suspeitos. A diligência foi realizada sem autorização judicial prévia. A defesa arguiu a nulidade da prova obtida, alegando violação à intimidade e necessidade de prévia autorização judicial por se tratar de ação controlada. A tese defensiva não merece acolhida, pois o monitoramento em via pública prescinde de autorização judicial e não configura ação controlada.",
+                "gabarito": "V",
+                "explicacao": "O STJ entende que o **monitoramento realizado por câmera instalada em via pública não configura ação controlada** e prescinde de autorização judicial, pois registra movimentação em espaço de acesso coletivo, não violando a privacidade constitucionalmente protegida.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 5,
+                "enunciado": "A Polícia Federal, investigando uma organização criminosa que utilizava um aplicativo de mensagens criptografadas, solicitou cooperação internacional à França para obter acesso aos dados dos servidores localizados naquele país. A Justiça francesa autorizou a quebra de sigilo telemático e compartilhou os dados com as autoridades brasileiras. A defesa alegou nulidade, argumentando que a obtenção de dados em massa configurava \"hacking massivo\" e violava a soberania nacional, além de não haver garantia de autenticidade. Nesse caso, incide o princípio da lex diligentiae, sendo válida a prova obtida no exterior conforme a legislação local, sem que a Justiça brasileira precise reexaminar a legalidade dos atos do país estrangeiro.",
+                "gabarito": "V",
+                "explicacao": "Segundo o STJ, em cooperação internacional penal, vigora o **princípio da lex diligentiae**, o que significa que a prova obtida no exterior é validada conforme a **legislação local**, cabendo à Justiça brasileira não adentrar na legalidade dos atos estrangeiros.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 6,
+                "enunciado": "Maria, vítima de violência doméstica, apresentou na delegacia \"prints\" de mensagens de WhatsApp, obtidos por ela mesma, nos quais seu companheiro a ameaçava. Em juízo, a defesa requereu a nulidade da prova, alegando quebra da cadeia de custódia, por se tratarem de arquivos digitais não acompanhados de metadados de autenticidade e por não haver perícia, o que violaria o art. 158-A do CPP. Se as mensagens forem confirmadas em juízo e não houver indícios de manipulação, a prova será considerada lícita, pois não se aplica o rigor técnico exigido da autoridade policial.",
+                "gabarito": "V",
+                "explicacao": "O STJ diferencia a coleta realizada por autoridade policial daquela feita por particular. Quando os \"prints\" são obtidos por particular e **confirmados em juízo, sem indícios de adulteração**, não há violação à cadeia de custódia.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 7,
+                "enunciado": "O Juiz de Direito da 1ª Vara Criminal da Comarca de São Paulo, ao proferir decisão recebendo a denúncia, constatou que os depoimentos colhidos no inquérito policial faziam referência a publicações de uma rede social do réu, não juntadas aos autos. De ofício, o magistrado acessou o perfil do investigado e utilizou as fotos publicadas para fundamentar a decretação de sua prisão preventiva. A conduta do juiz viola o sistema acusatório, sendo ilícita a prova obtida.",
+                "gabarito": "F",
+                "explicacao": "O STJ decidiu que o magistrado **pode realizar pessoalmente diligências suplementares**, como consulta a **redes sociais públicas**, para fundamentar decisões cautelares, sem violar o sistema acusatório, desde que observados os limites legais.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 8,
+                "enunciado": "Em um julgamento do Tribunal do Júri referente a um crime de homicídio no contexto do tráfico de drogas, o Ministério Público arrolou como única testemunha um policial civil que relatou ter ouvido dizer que os autores do crime seriam os réus. O policial afirmou que a comunidade estava apavorada e, por medo de represálias, nenhuma testemunha ocular aceitou depor. A condenação baseada exclusivamente neste testemunho indireto (hearsay testimony) é admitida de forma excepcional em razão do temor generalizado da comunidade.",
+                "gabarito": "V",
+                "explicacao": "O STJ admite a **relativização da inadmissibilidade do testemunho indireto** em casos excepcionais, como crimes envolvendo tráfico, quando o **medo generalizado da comunidade** impede a oitiva de testemunhas oculares, justificando um distinguishing.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 9,
+                "enunciado": "Após o deferimento de busca e apreensão domiciliar, a autoridade policial compareceu à residência do investigado sem portar o mandado físico, sob o argumento de que a ordem constava no sistema eletrônico da justiça. A busca foi realizada e objetos foram apreendidos. A ausência de mandado físico no momento do cumprimento da diligência não macula a legalidade da medida, desde que exista a prévia decisão judicial.",
+                "gabarito": "F",
+                "explicacao": "O STJ estabeleceu que a **ausência de mandado físico** compromete a legalidade da busca e apreensão, tornando **ilícitas** as provas obtidas, mesmo que exista autorização judicial prévia.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              },
+              {
+                "id": 10,
+                "enunciado": "O Ministério Público, em atuação investigativa, utilizou software de ronda virtual para identificar usuários em redes de compartilhamento de arquivos ponto a ponto (P2P) que disponibilizavam material contendo pornografia infantil. Com base nos IPs identificados, requisitou os dados cadastrais diretamente aos provedores de internet, sem autorização judicial prévia. A medida é válida, pois não se confunde com a infiltração de agentes, tratando-se de coleta de dados em ambiente público.",
+                "gabarito": "V",
+                "explicacao": "O STJ decidiu que a **polícia (e o MP)** pode usar software de ronda virtual (ex: CRC) para identificar IPs em redes P2P e requisitar os dados cadastrais diretamente aos provedores, **sem autorização judicial prévia**, não se confundindo com a infiltração do ECA.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 1: Teoria Geral da Prova, Reconhecimento de Pessoas e Busca/Apreensão"
+              }
+            ]
+          },
+          {
+            "nome": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal",
+            "questoes": [
+              {
+                "id": 11,
+                "enunciado": "Em uma investigação de crimes cibernéticos, os principais elementos probatórios de autoria consistem em dados extraídos de um servidor em nuvem. Diante da alegação da defesa de que os dados foram manipulados antes da apreensão, o magistrado, reconhecendo a existência de dúvida razoável sobre a integridade da prova digital, determinou a realização de perícia. Nesse caso, a proporcionalidade recomenda que a prisão preventiva do suspeito seja mantida até a conclusão da diligência técnica, a fim de garantir a conveniência da instrução criminal.",
+                "gabarito": "F",
+                "explicacao": "Segundo o entendimento do STJ (Info 878), quando os principais elementos de autoria dependem de dados digitais cuja fidedignidade necessita de confirmação pericial, a proporcionalidade recomenda a **substituição da prisão preventiva por medidas cautelares diversas** até a conclusão da perícia.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 12,
+                "enunciado": "Policiais Civis, de posse de um mandado de busca e apreensão domiciliar devidamente expedido, realizaram a entrada na residência do investigado às 20h30min, finalizando a diligência e saindo do local às 21h30min. De acordo com a Lei de Abuso de Autoridade (Lei nº 13.869/2019) e a jurisprudência recente do STJ, a diligência é considerada ilícita em sua totalidade, uma vez que o cumprimento do mandado deve ocorrer estritamente entre 5h e 21h.",
+                "gabarito": "V",
+                "explicacao": "O STJ (RHC 196.496-RN) fixou que, após a Lei nº 13.869/2019, o cumprimento de mandado de busca e apreensão domiciliar é válido entre **5h e 21h**. Configura **abuso de autoridade** o cumprimento fora desse intervalo. Como a diligência avançou após as 21h, houve violação ao período legal.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 13,
+                "enunciado": "O Ministério Público instaurou um Procedimento Investigatório Criminal (PIC) para apurar crimes de tortura supostamente praticados por policiais militares. Durante a investigação, o órgão ministerial requisitou diretamente a realização de perícia técnica a peritos oficiais. De acordo com o STF, tal requisição é válida, sendo exigido que os peritos gozem de plena autonomia funcional, técnica e científica na elaboração dos laudos.",
+                "gabarito": "V",
+                "explicacao": "Conforme decidido pelo STF (ADI 2.943/DF), nas investigações de natureza penal, o **Ministério Público pode requisitar a realização de perícia técnica**, cujos peritos deverão gozar de plena **autonomia funcional, técnica e científica**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 14,
+                "enunciado": "Joana, gestante e reincidente específica no crime de tráfico de drogas, teve sua prisão preventiva decretada. A defesa requereu a substituição por prisão domiciliar. O magistrado indeferiu o pedido fundamentando que a reiteração delitiva de Joana demonstra risco inequívoco à ordem pública e à proteção da criança que irá nascer. À luz da jurisprudência do STJ, a decisão está correta, pois a reiteração criminosa afasta a excepcionalidade da custódia preventiva.",
+                "gabarito": "F",
+                "explicacao": "O STJ (AgRg no HC 910.688-MG) decidiu que a **reiteração delitiva, por si só, não é razão suficiente** para negar a prisão domiciliar a gestantes ou mães de menores de 12 anos, pois isso não importa em risco inequívoco à infância e à sua proteção.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 15,
+                "enunciado": "Tício foi preso em flagrante pela prática de crime de roubo. Por questões de logística e falta de escolta policial disponível na comarca, a audiência de custódia não foi realizada no prazo de 24 horas. Diante da impossibilidade fática, o magistrado determinou a realização do ato por videoconferência. Segundo o STF, a não realização da audiência no prazo legal sem motivação idônea não autoriza o relaxamento automático da prisão, e o emprego da videoconferência é admitido excepcionalmente.",
+                "gabarito": "V",
+                "explicacao": "O STF (ADI 6.298/DF) assentou que a não realização da audiência em 24h, sem motivação idônea, **não enseja obrigatoriamente a ilegalidade da prisão** nem o relaxamento automático. Além disso, admitiu **excepcionalmente o uso de videoconferência** se o meio for apto a verificar a integridade do preso.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 16,
+                "enunciado": "Para a decretação da prisão temporária, o magistrado deve verificar, cumulativamente, a imprescindibilidade para as investigações, a existência de fundadas razões de autoria, a contemporaneidade dos fatos, a adequação à gravidade concreta do crime e a insuficiência de medidas cautelares diversas.",
+                "gabarito": "V",
+                "explicacao": "Trata-se da tese fixada pelo STF (ADI 3360/DF), que estabeleceu **cinco requisitos cumulativos** para a validade da prisão temporária, incluindo a **imprescindibilidade**, razões de autoria, **contemporaneidade**, adequação e a **insuficiência de cautelares diversas**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 17,
+                "enunciado": "O art. 295, VII, do Código de Processo Penal, que prevê o direito à prisão especial para diplomados por faculdades superiores da República até a decisão definitiva, foi considerado compatível com a Constituição Federal de 1988, uma vez que visa proteger a integridade física e moral de pessoas com maior grau de instrução em face da precariedade do sistema carcerário.",
+                "gabarito": "F",
+                "explicacao": "O STF (ADPF 334/DF) declarou que a previsão de prisão especial para pessoas com diploma de nível superior é **incompatível com a Constituição Federal**, por ofensa ao **princípio da isonomia**. O dispositivo **não foi recepcionado** pela CF/88.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              },
+              {
+                "id": 18,
+                "enunciado": "Mário, pai de uma criança de 4 anos de idade, foi preso preventivamente por crime de estelionato. Ele comprovou ser o único responsável pelos cuidados do filho, uma vez que a mãe da criança é falecida. De acordo com o STF, Mário possui direito à substituição da prisão preventiva pela domiciliar, pois os pais têm esse direito caso sejam os únicos responsáveis pelos cuidados de menor de 12 anos e o crime não tenha sido praticado com violência ou grave ameaça.",
+                "gabarito": "V",
+                "explicacao": "O STF (HC 165704/DF) estendeu o entendimento da prisão domiciliar aos **pais que sejam os únicos responsáveis** pelos cuidados de menor de 12 anos ou pessoa com deficiência, desde que atendidos os requisitos do art. 318 do CPP (sem violência, grave ameaça ou crime contra o filho).",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Processo Penal - Bloco 2: Prisões, Medidas Cautelares Pessoais e Investigação Criminal"
+              }
+            ]
+          }
+        ],
+        "res": {},
+        "fin": {},
+        "caderno": []
+      },
+      "stats": null,
+      "qSalva": 1,
+      "data": "2026-04-12T17:52:04.115Z"
+    }
+  ],
+  "si": 0
+}
