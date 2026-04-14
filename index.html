@@ -24,6 +24,7 @@ body.dark{background:#111318;color:#e8eaf0}
 body.dark #barra1{background:#16181f;border-color:#2e3140}
 body.dark .b1{background:#1e2128;border-color:#2e3140;color:#a0a8c0}
 body.dark .b1.p{background:#4a6cf7;color:#fff}
+body.dark .b1.p:hover{background:#3355e0}
 /* Correções de Contraste para o Modo Escuro */
 body.dark .qn { color: #8a8fa8 !important; }
 body.dark .bg h3 { color: #8a8fa8 !important; }
@@ -128,6 +129,45 @@ body.dark #paste-area{background:#1e2128;border-color:#3a3d50;color:#e0e2ee}
 #sim-wrap{display:flex;flex:1;min-height:0;overflow:hidden}
 #mc{flex:1;padding:2rem 2rem 4rem;overflow-y:scroll;min-width:0}
 #sb{width:280px;max-width:36vw;min-width:200px;flex-shrink:0;padding:1.25rem;overflow-y:scroll;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-left:0.5px solid #e0e0e0;transition:transform .25s ease}
+
+/* ── RESPONSIVIDADE MOBILE E BOTÕES FLUTUANTES ── */
+#sb-toggle, #top-toggle {
+  display: none; 
+}
+@media(max-width:700px){
+  /* 1. Esconde as barras superiores e a lateral por padrão */
+  #barra1, #barra2 { display: none !important; }
+  #sb { 
+    position: fixed; top: 0; right: 0; bottom: 0; 
+    width: 85vw; max-width: 320px; z-index: 250; 
+    transform: translateX(100%); border-left: none; 
+    box-shadow: -4px 0 24px rgba(0,0,0,.15); 
+    transition: transform .25s ease;
+  }
+
+  /* 2. Classes de exibição controladas pelo JS */
+  body.top-aberto #barra1, 
+  body.top-aberto #barra2 { display: flex !important; }
+  #sb.open { transform: translateX(0); }
+
+  /* 3. Estilo dos botões flutuantes */
+  #sb-toggle, #top-toggle {
+    display: flex !important; position: fixed; bottom: 1.25rem; z-index: 300;
+    width: 52px; height: 52px; border-radius: 50%; color: #fff;
+    border: none; font-size: 22px; cursor: pointer;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  #sb-toggle { right: 1.25rem; background: #4a6cf7; }
+  #top-toggle { left: 1.25rem; background: #f59e0b; }
+
+  /* Ajustes de layout */
+  #tela-simulado { height: 100vh !important; }
+  #mc { padding: 1rem 1rem 5rem; flex: 1; overflow-y: auto; }
+  #sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 240; }
+  #sb-overlay.open { display: block; }
+}
+
 body.dark #sb{background:rgba(20,22,30,.92);border-color:#2e3140}
 #sb h2{font-size:12px;font-weight:500;color:#aaa;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
 .sess-item{display:flex;align-items:center;justify-content:space-between;padding:.5rem .6rem;border-radius:8px;border:0.5px solid #e0e0e0;margin-bottom:.4rem;font-size:12px;background:#fff}
@@ -139,6 +179,7 @@ body.dark .sess-item span{color:#a0a8c0}
 .sess-del:hover{color:#ef4444}
 .sess-input{width:100%;padding:.4rem .6rem;border:0.5px solid #ddd;border-radius:6px;font-size:12px;margin-bottom:.4rem}
 .sess-input:focus{outline:none;border-color:#4a6cf7}
+body.dark .sess-input{background:#2a2d3a;border-color:#3a3d50;color:#e0e2ee}
 .bg{margin-bottom:1.5rem}
 .bg h3{font-size:11px;font-weight:500;color:#bbb;margin-bottom:.5rem;text-transform:uppercase;line-height:1.4}
 body.dark .bg h3{color:#444}
@@ -278,30 +319,6 @@ body.dark .mod-exp-item { background: #1a1d26; border-color: #252830; }
 body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
 .mod-exp-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 .mod-exp-name { font-size: 14px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* ── BOTÕES FLUTUANTES MOBILE E CORREÇÕES HTML ── */
-#sb-toggle, #top-toggle {
-  display: none; 
-}
-@media(max-width:700px){
-  #sb-toggle, #top-toggle {
-    display: flex !important; 
-    position: fixed;
-    bottom: 1.25rem;
-    z-index: 9999;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    color: #fff;
-    border: none;
-    font-size: 22px;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  }
-  #sb-toggle { right: 1.25rem; background: #4a6cf7; }
-  #top-toggle { left: 1.25rem; background: #f59e0b; }
-}
 </style>
 </head>
 <body>
@@ -310,7 +327,9 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
   <button class="b1" id="b1-limpar" disabled>Limpar simulado</button>
   <div class="b1sep"></div>
   <button class="b1 p" id="b1-novo">+ Novo simulado</button>
+  
   <button class="b1" id="b1-biblioteca" onclick="abrirBiblioteca()" style="color:#059669; border-color:#a7f3d0; background:#ecfdf5; font-weight:500;">📚 Biblioteca</button>
+
   <button class="b1" id="b1-export-novo" onclick="abrirModalExportacao()">Exportar JSON</button>
   <label class="b1" style="cursor:pointer">Importar JSON<input type="file" accept=".json" id="b1-import" style="display:none"></label>
   <button class="b1" id="b1-reset">↺ Nova sessão</button>
@@ -375,8 +394,8 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
       <div id="sbnav"></div>
     </div>
     <button id="sb-toggle" onclick="toggleSb()" title="Navegação">☰</button>
-  </div> 
-</div> 
+  </div>
+</div>
 
 <div id="tela-resultado" class="tela">
   <div class="ri" id="ri"></div>
@@ -386,9 +405,6 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
 
 <script>
 // ── STORAGE ────────────────────────────────────────────── //
-// FP: fingerprint por navegador (chaves pessoais)
-// shared:true para sessões compartilhadas entre todos os usuários
-
 var FP = (function(){
   try{
     var raw = [
@@ -399,7 +415,6 @@ var FP = (function(){
       navigator.hardwareConcurrency||'',
       navigator.platform||''
     ].join('|');
-    // Hash simples (djb2)
     var h=5381;
     for(var i=0;i<raw.length;i++) h=((h<<5)+h)+raw.charCodeAt(i);
     return 'u'+(h>>>0).toString(36);
@@ -532,7 +547,6 @@ function iniciar(){
 }
 function parsear(txt){
   D={blocos:[],res:{},fin:{},caderno:[]};
-  // Formato rápido: [enunciado][V/F][explicação]
   var ls=txt.split('\n'),bA=null,qi=0,ok=false;
   for(var i=0;i<ls.length;i++){
     var l=ls[i].trim();if(!l)continue;
@@ -546,7 +560,6 @@ function parsear(txt){
   }
   if(ok)return{ok:true,bruto:[]};
 
-  // Formato QUESTÃO N: com blocos
   D={blocos:[],res:{},fin:{},caderno:[]};
   var blocos=parsDisc(txt);
   if(blocos.length&&blocos.some(function(b){return b.questoes.length;})){
@@ -564,19 +577,10 @@ function parsDisc(txt){
   var RE_ALT=/^([A-Ea-e])[).]\s+/;
   var RE_TAG=/^\[([A-Za-záàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ\s]+)\]\s*/;
 
-  function isGab(l){
-    return /^(?:Gabarito\s*(?:Oficial)?\s*:|Resposta\s*:)/i.test(l)||/^\[([VFABCDE])\]$/i.test(l);
-  }
-  function isExp(l){
-    return /^(?:Explica[çc][aã]o\s*:|\[(?:IN)?CORRETO\])/i.test(l);
-  }
-  function proxNaoVazia(from){
-    for(var j=from+1;j<linhas.length;j++){if(linhas[j].trim())return linhas[j].trim();}return '';
-  }
-  function novoBloco(nome){
-    blocoAtual={nome:nome||C.nome||'Geral',questoes:[]};
-    blocos.push(blocoAtual);
-  }
+  function isGab(l){ return /^(?:Gabarito\s*(?:Oficial)?\s*:|Resposta\s*:)/i.test(l)||/^\[([VFABCDE])\]$/i.test(l); }
+  function isExp(l){ return /^(?:Explica[çc][aã]o\s*:|\[(?:IN)?CORRETO\])/i.test(l); }
+  function proxNaoVazia(from){ for(var j=from+1;j<linhas.length;j++){if(linhas[j].trim())return linhas[j].trim();}return ''; }
+  function novoBloco(nome){ blocoAtual={nome:nome||C.nome||'Geral',questoes:[]}; blocos.push(blocoAtual); }
   function normGab(raw){
     raw=raw.trim().toUpperCase();
     if(C.tipo==='ce'){
@@ -612,7 +616,6 @@ function parsDisc(txt){
     var l=linhas[i].trim();
     if(!l)continue;
 
-    // Início de nova questão
     if(RE_Q.test(l)){
       finalizarQuestao();
       if(pendenteCabecalho){novoBloco(pendenteCabecalho);pendenteCabecalho=null;}
@@ -625,19 +628,15 @@ function parsDisc(txt){
     }
 
     if(qEmCurso){
-      // Gabarito — verificar antes de alternativa
       if(isGab(l)){
         var gn=extrairGab(l);
         if(gn){qEmCurso.gabarito=gn;fase='gabarito';continue;}
       }
-      // Explicação
       if(isExp(l)){
         var exI=l.replace(/^(?:Explica[çc][aã]o\s*:|\[(?:IN)?CORRETO\])\s*/i,'').trim();
         if(exI)qEmCurso.explicacao.push(exI);
         fase='explicacao';continue;
       }
-
-      // Fase ENUNCIADO
       if(fase==='enunciado'){
         if(C.tipo==='mc'&&RE_ALT.test(l)){
           qEmCurso.alternativas.push(l);fase='alternativas';continue;
@@ -650,21 +649,15 @@ function parsDisc(txt){
         }
         continue;
       }
-
-      // Fase ALTERNATIVAS — concatenar continuações na última alternativa
       if(fase==='alternativas'){
         if(C.tipo==='mc'&&RE_ALT.test(l)){
           qEmCurso.alternativas.push(l);continue;
         }
-        // Linha que NÃO é nova alternativa e NÃO é gabarito/explicação
-        // → continuação da última alternativa (PDF com quebra de linha)
         if(qEmCurso.alternativas.length){
           qEmCurso.alternativas[qEmCurso.alternativas.length-1]+=' '+l;
         }
         continue;
       }
-
-      // Fase GABARITO ou EXPLICAÇÃO
       if(fase==='explicacao'){
         var prox=proxNaoVazia(i);
         if(RE_Q.test(prox)){finalizarQuestao();pendenteCabecalho=l;continue;}
@@ -673,12 +666,10 @@ function parsDisc(txt){
       if(fase==='gabarito'){
         var prox2=proxNaoVazia(i);
         if(RE_Q.test(prox2)){finalizarQuestao();pendenteCabecalho=l;continue;}
-        // Linha após gabarito que não é explicação pode ser início de explicação
         qEmCurso.explicacao.push(l);fase='explicacao';continue;
       }
       continue;
     }
-
     pendenteCabecalho=l;
   }
   finalizarQuestao();
@@ -699,11 +690,9 @@ function renderTabs(){
   SIMS.forEach(function(s,i){
     var conc=s.stats!==null,p=conc?s.stats.pct:pct(s.dados);
     var isAtiva=(i===SI);
-
     var wrap=document.createElement('div');
     wrap.className='tab-wrap'+(isAtiva?' ativa':'')+(conc?' conc':'');
 
-    // Input editável — clique simples na aba ativa edita; clique em aba inativa troca de aba
     var inp=document.createElement('input');
     inp.type='text';
     inp.className='tab-nome';
@@ -713,28 +702,16 @@ function renderTabs(){
 
     (function(ii, sim){
       inp.addEventListener('mousedown', function(e){
-        if(ii !== SI){
-          // Aba inativa: trocar de aba, não editar
-          e.preventDefault();
-          trocarTab(ii);
-        }
+        if(ii !== SI){ e.preventDefault(); trocarTab(ii); }
       });
       inp.addEventListener('focus', function(){
-        if(ii === SI){
-          this.readOnly=false;
-          this.select();
-        }
+        if(ii === SI){ this.readOnly=false; this.select(); }
       });
       inp.addEventListener('blur', function(){
         this.readOnly=true;
         var n=this.value.trim();
-        if(n && n!==sim.cfg.nome){
-          sim.cfg.nome=n;
-          // Atualizar C se for a aba ativa
-          if(ii===SI) C.nome=n;
-        } else if(!n){
-          this.value=sim.cfg.nome; // Restaurar se apagou tudo
-        }
+        if(n && n!==sim.cfg.nome){ sim.cfg.nome=n; if(ii===SI) C.nome=n; } 
+        else if(!n){ this.value=sim.cfg.nome; }
       });
       inp.addEventListener('keydown', function(e){
         if(e.key==='Enter'){this.blur();}
@@ -750,9 +727,7 @@ function renderTabs(){
     x.className='tab-x';
     x.textContent='×';
     x.title='Fechar';
-    (function(ii){
-      x.onclick=function(e){e.stopPropagation();fecharTab(ii);};
-    })(i);
+    (function(ii){ x.onclick=function(e){e.stopPropagation();fecharTab(ii);}; })(i);
 
     wrap.appendChild(inp);
     wrap.appendChild(pct_el);
@@ -769,13 +744,11 @@ function trocarTab(i, forceQuestao){
   SI=i;var s=SIMS[i];
   C=JSON.parse(JSON.stringify(s.cfg));D=JSON.parse(JSON.stringify(s.dados));QA=s.qSalva||null;
   if(forceQuestao||!s.stats){
-    // Mostrar questões (modo prova ou revisão)
-    MODO_REVISAO = !!(forceQuestao && s.stats); // revisão = forçado E já finalizado
+    MODO_REVISAO = !!(forceQuestao && s.stats);
     tela(null);g('tela-simulado').style.display='flex';
     renderSim();renderNav();
     if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
   } else {
-    // Simulado finalizado: mostrar resultados
     g('tela-simulado').style.display='none';
     HIST=SIMS.filter(function(x){return x.stats;}).map(function(x){return mkH(x,SIMS.indexOf(x));});HI=HIST.length-1;
     for(var j=0;j<HIST.length;j++){if(HIST[j].si===i){HI=j;break;}}
@@ -816,7 +789,6 @@ function renderSim(){
   var mc=g('mc');mc.innerHTML='';
   var temResp=Object.keys(D.res).some(function(k){return D.res[k]&&D.res[k].c;});
   g('b1-limpar').disabled=!temResp;
-  // Botão dinâmico: Finalizar vs Ver Resultados
   var jaFinalizado=SIMS[SI]&&SIMS[SI].stats;
   var btn=g('b1-finalizar');
   if(btn){
@@ -837,14 +809,11 @@ function renderSim(){
     mc.appendChild(d);
     if(bi<D.blocos.length-1){var sep=document.createElement('div');sep.className='sep';sep.innerHTML='<div class="sepl"></div><span>próximo bloco</span><div class="sepl"></div>';mc.appendChild(sep);}
   });
-  // Restaurar estado visual das questões já confirmadas
   D.blocos.forEach(function(b){b.questoes.forEach(function(q){
     var r=D.res[q.id];if(!r||!r.c)return;
     var bc=g('bc-'+q.id);if(bc)bc.style.display='none';
     var cegas=C.cegas&&!MODO_REVISAO;
-    var opts2=(C.tipo==='mc'&&q.alternativas&&q.alternativas.length)
-      ?['A','B','C','D','E'].slice(0,q.alternativas.length)
-      :['V','F'];
+    var opts2=(C.tipo==='mc'&&q.alternativas&&q.alternativas.length) ?['A','B','C','D','E'].slice(0,q.alternativas.length) :['V','F'];
     opts2.forEach(function(l){
       var el=g('v'+l+'-'+q.id);if(!el)return;
       if(cegas){el.classList.add('nt');}
@@ -869,14 +838,12 @@ function mkQ(q, modoRevisao){
 
   var en=document.createElement('div');en.className='qe';en.textContent=q.enunciado;
 
-  // Contêiner de alternativas/botões
   var vg=document.createElement('div');
   vg.className='vfg';
 
   var isMC=C.tipo==='mc'&&q.alternativas&&q.alternativas.length;
 
   if(isMC){
-    // Múltipla Escolha: botões verticais com texto da alternativa
     vg.style.flexDirection='column';
     var letras=['A','B','C','D','E'];
     q.alternativas.forEach(function(alt,idx){
@@ -891,7 +858,6 @@ function mkQ(q, modoRevisao){
       vg.appendChild(btn);
     });
   } else {
-    // Certo/Errado: botões V e F
     var vV=document.createElement('div');vV.className='vfb';vV.id='vV-'+q.id;
     vV.textContent='Verdadeiro';vV.setAttribute('data-qid',q.id);vV.setAttribute('data-v','V');
     vV.onclick=function(){selVF(parseInt(this.getAttribute('data-qid')),this.getAttribute('data-v'));};
@@ -931,9 +897,7 @@ function conf(qId){
   r.c=true;r.ok=r.v===q.gabarito;
   var bc=g('bc-'+qId);if(bc)bc.style.display='none';
   var cegas=C.cegas;
-  var opcoes=(C.tipo==='mc'&&q.alternativas&&q.alternativas.length)
-    ?['A','B','C','D','E'].slice(0,q.alternativas.length)
-    :['V','F'];
+  var opcoes=(C.tipo==='mc'&&q.alternativas&&q.alternativas.length) ?['A','B','C','D','E'].slice(0,q.alternativas.length) :['V','F'];
   opcoes.forEach(function(l){
     var el=g('v'+l+'-'+qId);if(!el)return;
     if(cegas){el.classList.add('nt');}
@@ -1125,8 +1089,8 @@ function gerarAnalise(h){
 }
 function calcStats(){var todas=D.blocos.reduce(function(a,b){return a.concat(b.questoes);},[]);var resp=todas.filter(function(q){return D.res[q.id]&&D.res[q.id].c;});var ac=resp.filter(function(q){return D.res[q.id].ok;}).length;var p=resp.length?Math.round(ac/resp.length*100):0;var pb=D.blocos.map(function(b){var qs=b.questoes.filter(function(q){return D.res[q.id]&&D.res[q.id].c;});var a=qs.filter(function(q){return D.res[q.id].ok;}).length;return{nome:b.nome,total:b.questoes.length,resp:qs.length,ac:a,pct:qs.length?Math.round(a/qs.length*100):null};});return{total:todas.length,resp:resp.length,ac:ac,pct:p,pb:pb};}
 
-// ── NOVO SIMULADO ─────────────────────────────────────────
-// Controla a Barra Lateral (Questões)
+// ── COMANDOS MOBILE E NAVEGAÇÃO ─────────────────────────────────────────
+// Controla a Barra Lateral (Questões) no Mobile
 function toggleSb(){
   var sb = g('sb'), ov = g('sb-overlay'), btn = g('sb-toggle');
   if(!sb || !btn) return;
@@ -1136,16 +1100,16 @@ function toggleSb(){
   if(open) renderSessoes();
 }
 
-// Controla as Barras Superiores (Abas e Ferramentas)
+// Controla as Barras Superiores (Abas e Ferramentas) no Mobile
 function toggleTop(){
   var btn = g('top-toggle');
   var aberto = document.body.classList.toggle('top-aberto');
   if(btn) btn.textContent = aberto ? '×' : '⚙';
-  // Opcional: fechar a barra lateral se abrir as abas para não poluir
+  // Opcional: fechar a barra lateral se abrir as abas para não poluir a tela
   if(aberto && g('sb').classList.contains('open')) toggleSb();
 }
 
-// Garante que tudo fecha ao clicar no fundo escuro ou mudar de tela
+// Garante que tudo fecha ao clicar no fundo escuro ou mudar de tela no Mobile
 function fecharSb(){
   var sb = g('sb'), ov = g('sb-overlay'), btnTop = g('top-toggle');
   if(sb && sb.classList.contains('open')){
@@ -1153,21 +1117,21 @@ function fecharSb(){
     if(ov) ov.classList.remove('open');
     g('sb-toggle').textContent = '☰';
   }
-  // Também fecha a barra superior ao clicar fora
+  // Também fecha a barra superior
   document.body.classList.remove('top-aberto');
   if(btnTop) btnTop.textContent = '⚙';
 }
 
-function novoSim(){C={nome:'',tipo:'ce',cegas:false};D={blocos:[],res:{},fin:{},caderno:[]};QA=null;g('cfg-nome').value='';g('cfg-ok').disabled=true;g('paste-area').value='';g('paste-st').textContent='Aguardando...';g('tela-simulado').style.display='none';tela('tela-config');renderSessoesConfig();}
+function novoSim(){C={nome:'',tipo:'ce',cegas:false};D={blocos:[],res:{},fin:{},caderno:[]};QA=null;g('cfg-nome').value='';g('cfg-ok').disabled=true;g('paste-area').value='';g('paste-st').textContent='Aguardando...';g('tela-simulado').style.display='none';tela('tela-config');renderSessoesConfig(); fecharSb(); }
 
 // ── EXPORTAÇÃO SELETIVA ──
 function abrirModalExportacao() {
+  fecharSb(); // Esconde o menu se tiver no mobile
   if (!SIMS.length) {
     mostrarModal({ titulo: 'Exportar', mensagem: 'Nenhum simulado ativo para exportar.', botoes: [{ label: 'OK', cor: '#4a6cf7', cb: null }] });
     return;
   }
   
-  // Salva o estado atual do simulado em andamento antes de exportar
   if (SI >= 0 && SIMS[SI]) {
     SIMS[SI].dados = JSON.parse(JSON.stringify(D));
     SIMS[SI].qSalva = QA;
@@ -1303,6 +1267,7 @@ function importarJSON(e){
         else if(D.blocos[0] && D.blocos[0].questoes[0]) setQA(D.blocos[0].questoes[0].id);
       }
       autoSave();
+      fecharSb(); // Esconde menu no mobile se abriu por lá
     } catch(ex) { 
       alert('Erro ao ler o arquivo JSON: ' + ex); 
     }
@@ -1310,8 +1275,6 @@ function importarJSON(e){
   reader.readAsText(file);
   e.target.value = ''; // Reseta o input para permitir importar o mesmo arquivo novamente se necessário
 }
-
-
 
 function renderSessoesConfig(){
   var lista=document.getElementById('cfg-sess-lista');
@@ -1434,8 +1397,6 @@ function renderSessoes(){
   });
 }
 
-
-
 function toggleCegas(){
   C.cegas=!C.cegas;
   var track=g('cegas-track');
@@ -1468,7 +1429,6 @@ function novaSecao(){
   wsDel(FP+':auto');
 
   // Limpar UI do formulário
-  
   var fc=g('cfg-nome');if(fc)fc.value='';
   var fo=g('cfg-ok');if(fo)fo.disabled=true;
 
@@ -1480,11 +1440,11 @@ function novaSecao(){
   renderTabs();
   tela('tela-config');
   renderSessoesConfig();
+  fecharSb(); // Esconder menu no mobile
 }
 
 
 function mostrarModal(cfg){
-  // cfg: {titulo, mensagem, botoes:[{label,cor,cb}], aviso}
   var dark=document.body.classList.contains('dark');
   var overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
@@ -1517,7 +1477,6 @@ function mostrarModal(cfg){
 }
 
 function finalizarSimulado(){
-  // Atalho: se já finalizado, apenas navegar para resultados sem reprocessar
   var s=SIMS[SI];
   if(s&&s.stats){
     HIST=SIMS.filter(function(x){return x.stats;}).map(function(x){return mkH(x,SIMS.indexOf(x));});
@@ -1527,6 +1486,7 @@ function finalizarSimulado(){
     renderResultado(HI);
     tela('tela-resultado');
     renderTabs();
+    fecharSb(); // Esconde sidebar no mobile
     return;
   }
   var temResposta=Object.keys(D.res).some(function(k){return D.res[k]&&D.res[k].c;});
@@ -1556,6 +1516,7 @@ function finalizarSimulado(){
         renderResultado(HI);
         tela('tela-resultado');
         renderTabs();
+        fecharSb(); // Esconde sidebar no mobile
       }}
     ]
   });
@@ -1791,9 +1752,10 @@ function showBlobModal(conteudo,nome,mime){
   ft.appendChild(cb2);ft.appendChild(cl);box.appendChild(hd);box.appendChild(info);box.appendChild(ta);box.appendChild(ft);mo.appendChild(box);document.body.appendChild(mo);
   setTimeout(function(){ta.select();},100);
 }
-// ── BIBLIOTECA DE SIMULADOS (NUVEM AUTOMATIZADA) ──
 
+// ── BIBLIOTECA DE SIMULADOS (NUVEM AUTOMATIZADA) ──
 function abrirBiblioteca() {
+  fecharSb(); // Esconde sidebar caso tenha sido acionado pelo mobile
   var dark = document.body.classList.contains('dark');
   var overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
@@ -1824,7 +1786,6 @@ function abrirBiblioteca() {
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
-  // Busca o catálogo que o robô do GitHub Actions vai gerar na pasta simulados
   fetch('simulados/catalogo.json?t=' + new Date().getTime())
     .then(function(res) {
       if (!res.ok) throw new Error('Catálogo não encontrado. Faça o upload do primeiro simulado no GitHub.');
@@ -1832,12 +1793,10 @@ function abrirBiblioteca() {
     })
     .then(function(catalogo) {
       list.innerHTML = ''; 
-      
       if (!catalogo || catalogo.length === 0) {
         list.innerHTML = '<div style="font-size:13px; color:#aaa; text-align:center; padding:2rem 0;">Nenhum simulado disponível na pasta ainda.</div>';
         return;
       }
-
       catalogo.forEach(function(item) {
         var card = document.createElement('div');
         card.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:0.8rem 1rem; border-radius:8px; border:1px solid ' + (dark ? '#2e3140' : '#e0e0e0') + '; background:' + (dark ? '#1a1d26' : '#fafafa') + ';';
@@ -1845,7 +1804,6 @@ function abrirBiblioteca() {
         var nm = document.createElement('span');
         nm.style.cssText = 'font-size:14px; font-weight:500; color:' + (dark ? '#a0a8c0' : '#333') + '; flex:1; padding-right:1rem;';
         
-        // Limpa a extensão ".json" e formata o nome do arquivo para usar como título
         var tituloLimpo = item.arquivo.replace('simulados/', '').replace('.json', '').replace(/[-_]/g, ' ');
         tituloLimpo = tituloLimpo.replace(/\b\w/g, function(l){ return l.toUpperCase(); });
         nm.textContent = tituloLimpo;
@@ -1869,7 +1827,6 @@ function abrirBiblioteca() {
               var arr = data.sims || data.simulados || data;
               if(!Array.isArray(arr) || !arr.length) throw new Error('Formato inválido.');
               
-              // Importação cumulativa segura (não apaga os atuais)
               SIMS = SIMS.concat(arr);
               SI = SIMS.length - arr.length;
               
@@ -1902,10 +1859,7 @@ function abrirBiblioteca() {
               btnBaixar.disabled = false;
             });
         };
-        
-        card.appendChild(nm);
-        card.appendChild(btnBaixar);
-        list.appendChild(card);
+        card.appendChild(nm); card.appendChild(btnBaixar); list.appendChild(card);
       });
     })
     .catch(function(err) {
