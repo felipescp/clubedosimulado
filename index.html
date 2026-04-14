@@ -323,6 +323,33 @@ body.dark .nb.nr:hover { border-color: #4a6cf7 !important; color: #7a9cf7 !impor
 body.dark .qe { color: #e8eaf0 !important; }
 body.dark #sb-toggle, body.dark #top-toggle { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
 body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
+
+/* Garante visibilidade dos botões mobile */
+#sb-toggle, #top-toggle {
+  display: none; /* Escondido no PC */
+}
+
+@media(max-width:700px){
+  #sb-toggle, #top-toggle {
+    display: flex !important; /* Mostra no Mobile */
+    position: fixed;
+    bottom: 1.25rem;
+    z-index: 9999;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  #sb-toggle { right: 1.25rem; background: #4a6cf7; }
+  #top-toggle { left: 1.25rem; background: #f59e0b; } /* Laranja para o Menu */
+}
+
+  
 </style>
 </head>
 <body>
@@ -390,13 +417,16 @@ body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
       <button class="b1" id="b1-exp-res" style="width:100%;margin-bottom:1rem;font-size:12px">⬇ Exportar resultado</button>
       <h2 style="margin-top:.5rem">Sessões salvas</h2>
       <input type="text" class="sess-input" id="sess-nome" placeholder="Nome da sessão...">
-      <button class="b1 p" id="b1-salvar-sess" style="width:100%;margin-bottom:1rem;font-size:11px">＋ Salvar sessão atual</button>
+<button class="b1 p" id="b1-salvar-sess" style="width:100%;margin-bottom:1rem;font-size:11px">＋ Salvar sessão atual</button>
       <div id="sess-lista"></div>
       <h2 style="margin-top:1rem">Questões</h2>
       <div id="sbnav"></div>
-    </div>
-      
-<div id="tela-resultado" class="tela">
+    </div> <button id="sb-toggle" onclick="toggleSb()" title="Navegação">☰</button>
+  </div> </div> <div id="tela-resultado" class="tela">
+  <div class="ri" id="ri"></div>
+</div>
+
+<button id="top-toggle" onclick="toggleTop()" title="Menu Superior">⚙</button>
   <div class="ri" id="ri"></div>
 </div>
 
