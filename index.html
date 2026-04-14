@@ -344,8 +344,9 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
 
   <button class="b1" id="b1-export-novo" onclick="abrirModalExportacao()">Exportar JSON</button>
   <label class="b1" style="cursor:pointer">Importar JSON<input type="file" accept=".json" id="b1-import" style="display:none"></label>
-  <button class="b1" id="b1-reset">↺ Nova sessão</button>
-  <button class="b1 w" id="b1-tema">☀</button>
+<button class="b1" id="b1-reset">↺ Nova sessão</button>
+<button class="b1" id="b1-som" title="Ativar/Desativar Som" style="font-size:16px; padding:0.1rem 0.5rem">🔇</button>
+  <button class="b1 w" id="b1-tema">☀</button>
 </div> 
 
 <div id="barra2"></div>
@@ -415,6 +416,54 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
 <button id="top-toggle" onclick="toggleTop()" title="Menu Superior">⚙</button>
 
 <script>
+// Inicializa o motor de áudio do navegador
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function tocarFeedback(acertou) {
+  if (!window.SOM_ATIVO) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  var t = audioCtx.currentTime;
+  
+  var osc = audioCtx.createOscillator();
+  var gainNode = audioCtx.createGain();
+  
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  
+  if (acertou) {
+    // Som de Acerto: "Chime" duplo agradável (Notas Lá5 e Mi6)
+    osc.type = 'sine'; // Timbre limpo e redondo
+    
+    // Primeira nota
+    osc.frequency.setValueAtTime(880, t);
+    gainNode.gain.setValueAtTime(0, t);
+    gainNode.gain.linearRampToValueAtTime(0.2, t + 0.02); // Ataque suave
+    gainNode.gain.exponentialRampToValueAtTime(0.05, t + 0.1); // Decaimento rápido
+    
+    // Segunda nota (mais aguda)
+    osc.frequency.setValueAtTime(1318.5, t + 0.1);
+    gainNode.gain.linearRampToValueAtTime(0.25, t + 0.12);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, t + 0.5); // Eco/cauda longa do sino
+    
+    osc.start(t);
+    osc.stop(t + 0.5);
+  } else {
+    // Som de Erro: "Buzz" grave e discreto
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(150, t);
+    osc.frequency.exponentialRampToValueAtTime(80, t + 0.2);
+    gainNode.gain.setValueAtTime(0.3, t);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
+    
+    osc.start(t);
+    osc.stop(t + 0.3);
+  }
+}
+
+
+
+
 // ── STORAGE ────────────────────────────────────────────── //
 var FP = (function(){
   try{
@@ -521,6 +570,20 @@ window.addEventListener('load',function(){
   g('b1-salvar-sess').onclick=salvarSessao;
   g('b1-reset').onclick=novaSecao;
   g('b1-tema').onclick=function(){DARK=!DARK;document.body.classList.toggle('dark',DARK);g('b1-tema').textContent=DARK?'☾':'☀';};
+
+// 1. Força o estado inicial absoluto como MUDO (sem ler memória)
+  window.SOM_ATIVO = false;
+  var btnSom = g('b1-som');
+  if(btnSom) btnSom.textContent = '🔇';
+
+  // 2. Lógica do clique (Alternar)
+  if(btnSom) {
+    btnSom.onclick = function(){
+      window.SOM_ATIVO = !window.SOM_ATIVO;
+      this.textContent = window.SOM_ATIVO ? '🔊' : '🔇';
+    };
+  }
+
   g('ro-ce').onclick=function(){C.tipo='ce';g('ro-ce').classList.add('sel');g('ro-mc').classList.remove('sel');};
   g('ro-mc').onclick=function(){C.tipo='mc';g('ro-mc').classList.add('sel');g('ro-ce').classList.remove('sel');};
   g('cfg-nome').oninput=valCfg;
@@ -862,7 +925,9 @@ function mkQ(q, modoRevisao){
   var num=document.createElement('div');num.className='qn';
   num.textContent=q.bn+' · Questão '+q.id+(q.taxonomia?' · '+q.taxonomia:'');
 
-  var en=document.createElement('div');en.className='qe';en.textContent=q.enunciado;
+  var en=document.createElement('div');en.className='qe';
+  // Aplica negrito e itálico usando innerHTML em vez de textContent
+  en.innerHTML=q.enunciado.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>');
 
   var vg=document.createElement('div');
   vg.className='vfg';
@@ -930,11 +995,14 @@ function selVF(qId,v){
       if(l === v) el.classList.add('sl');
     }
   });
+  
   var bc=g('bc-'+qId);
   if(bc){
     bc.disabled=false;
-    // Centraliza a tela no botão de confirmar após a seleção
-    setTimeout(function(){ bc.scrollIntoView({behavior:'smooth', block:'center'}); }, 50);
+    // Gatilho de rolagem isolado apenas para telas menores que 700px (Mobile)
+    if (window.innerWidth <= 700) {
+      setTimeout(function(){ bc.scrollIntoView({behavior:'smooth', block:'center'}); }, 50);
+    }
   }
   setQA(qId);
 }
@@ -942,12 +1010,18 @@ function conf(qId){
   var q=getQ(qId), r=D.res[qId];
   if(!q || !r || !r.v) return;
 
-  r.c=true;
+r.c=true;
   r.ok = (r.v === q.gabarito);
   
   var bc=g('bc-'+qId); if(bc) bc.style.display='none';
   
   var cegas = C.cegas;
+
+  // Dispara o som sincronizado com a animação CSS (se não estiver às cegas)
+  if (!cegas) {
+    tocarFeedback(r.ok);
+  }
+
   var opcoes = (C.tipo === 'mc' && q.alternativas && q.alternativas.length) 
                ? ['A','B','C','D','E'].slice(0, q.alternativas.length) 
                : ['V','F'];
