@@ -1,3 +1,4 @@
 [
-  { "arquivo": "simulados/SIMULADODOD.json" }
+  { "arquivo": "simulados/SIMULADODOD.json" },
+  { "arquivo": "simulados/simuladoteste.json" }
 ]
