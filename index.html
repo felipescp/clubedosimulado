@@ -396,14 +396,17 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
   <button class="b1 b1-icon" id="b1-export-novo" onclick="abrirModalExportacao()" title="Exportar JSON">📤</button>
   <label class="b1 b1-icon" style="cursor:pointer" title="Importar JSON">📥<input type="file" accept=".json" id="b1-import" style="display:none"></label>
   
-  <div style="flex:1"></div> <button class="b1 b1-icon" id="b1-som" title="Ativar/Desativar Som">🔇</button>
+<div style="flex:1"></div> 
+  <button class="b1 p b1-icon" id="b1-auto" title="Desativar Avanço Automático">⏩</button>
+  <button class="b1 b1-icon" id="b1-cegas" title="Ativar Modo às Cegas">👁️</button>
+  <button class="b1 b1-icon" id="b1-som" title="Ativar/Desativar Som">🔇</button>
   <button class="b1 w b1-icon" id="b1-tema" title="Alternar Modo Claro/Escuro">☀</button>
 </div>
 
 <div id="barra2"></div>
   
 <div id="tela-config" class="tela ativa">
-  <div class="cfg-card">
+<div class="cfg-card">
     <div><div class="cl">Nome do simulado <span>*</span></div><input type="text" id="cfg-nome" placeholder="Ex: Direito Civil, Processo Penal..."></div>
     <div>
       <div class="cl">Tipo de questão</div>
@@ -412,21 +415,6 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
         <div class="ro" id="ro-mc">Múltipla Escolha (A-E)</div>
       </div>
     </div>
-    <div>
-      <div class="cl">Modo de resposta</div>
-      <div class="toggle-wrap" id="cegas-wrap" onclick="toggleCegas()">
-        <div class="toggle-track" id="cegas-track"><div class="toggle-thumb"></div></div>
-        <span class="toggle-label">Responder às cegas (Modo Estrito)<br><small style="color:#aaa;font-size:11px">Oculta acertos/erros e explicações até finalizar</small></span>
-      </div>
-    </div>
-
-<div style="margin-top: 0.5rem;">
-      <div class="toggle-wrap" id="auto-wrap" onclick="toggleAuto()">
-        <div class="toggle-track on" id="auto-track"><div class="toggle-thumb"></div></div>
-        <span class="toggle-label">Avanço Automático<br><small style="color:#aaa;font-size:11px">Avança para a próxima questão automaticamente</small></span>
-      </div>
-    </div>
-
     <button class="bp" id="cfg-ok" disabled>Continuar</button>
   </div>
   <div class="sess-card" id="cfg-sess-card">
@@ -651,6 +639,8 @@ window.addEventListener('load',function(){
   g('b1-exp-res').onclick=exportarResultado;
   g('b1-salvar-sess').onclick=salvarSessao;
   g('b1-reset').onclick=novaSecao;
+  g('b1-cegas').onclick = toggleCegasSim;
+  g('b1-auto').onclick = toggleAutoSim;
   g('b1-tema').onclick=function(){DARK=!DARK;document.body.classList.toggle('dark',DARK);g('b1-tema').textContent=DARK?'☾':'☀';};
 
 // 1. Força o estado inicial absoluto como MUDO (sem ler memória)
@@ -695,10 +685,13 @@ window.addEventListener('load',function(){
         if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
         renderSessoes();
       }
-    } else {
-      tela('tela-config');
-      renderSessoesConfig();
-    }
+} else {
+        tela(null);g('tela-simulado').style.display='flex';
+        renderSim();renderNav();
+        if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
+        renderSessoes();
+        setTimeout(function(){ if(g('mc')) g('mc').scrollTop = 0; }, 100);
+      }
   });
 });
 
@@ -957,6 +950,7 @@ function fecharTab(i){
 
 // ── RENDER SIMULADO ───────────────────────────────────────
 function renderSim(){
+  syncTogglesUI(); // <-- Garante a atualização visual dos botões
   var mc=g('mc');mc.innerHTML='';
   var temResp=Object.keys(D.res).some(function(k){return D.res[k]&&D.res[k].c;});
   g('b1-limpar').disabled=!temResp;
@@ -980,20 +974,26 @@ function renderSim(){
     mc.appendChild(d);
     if(bi<D.blocos.length-1){var sep=document.createElement('div');sep.className='sep';sep.innerHTML='<div class="sepl"></div><span>próximo bloco</span><div class="sepl"></div>';mc.appendChild(sep);}
   });
-  D.blocos.forEach(function(b){b.questoes.forEach(function(q){
+D.blocos.forEach(function(b){b.questoes.forEach(function(q){
     var r=D.res[q.id];if(!r||!r.c)return;
     var bc=g('bc-'+q.id);if(bc)bc.style.display='none';
     var cegas=C.cegas&&!MODO_REVISAO;
     var opts2=(C.tipo==='mc'&&q.alternativas&&q.alternativas.length) ?['A','B','C','D','E'].slice(0,q.alternativas.length) :['V','F'];
     opts2.forEach(function(l){
       var el=g('v'+l+'-'+q.id);if(!el)return;
-      if(cegas){el.classList.add('nt');}
-      else{if(l===q.gabarito)el.classList.add('cv');else if(l===r.v&&!r.ok)el.classList.add('ic');else el.classList.add('nt');}
+      if(cegas){
+        if(l === r.v) el.classList.add('sl');
+        else el.classList.add('nt');
+      } else {
+        if(l===q.gabarito)el.classList.add('cv');
+        else if(l===r.v&&!r.ok)el.classList.add('ic');
+        else el.classList.add('nt');
+      }
     });
     var qel=g('q-'+q.id);
     if(qel){
       qel.classList.remove('qa');
-      if(cegas)qel.style.borderColor='#9ca3af';
+      if(cegas) qel.style.borderColor='#e0e0e0';
       else qel.classList.add(r.ok?'qv':'qf');
     }
     var ew=g('ew-'+q.id);if(ew&&!cegas)ew.style.display='';
@@ -1088,18 +1088,18 @@ function selVF(qId,v){
   }
   setQA(qId);
 }
+
 function conf(qId){
   var q=getQ(qId), r=D.res[qId];
   if(!q || !r || !r.v) return;
 
-r.c=true;
+  r.c=true;
   r.ok = (r.v === q.gabarito);
   
   var bc=g('bc-'+qId); if(bc) bc.style.display='none';
   
-  var cegas = C.cegas;
+  var cegas = C.cegas && !MODO_REVISAO;
 
-  // Dispara o som sincronizado com a animação CSS (se não estiver às cegas)
   if (!cegas) {
     tocarFeedback(r.ok);
   }
@@ -1111,21 +1111,27 @@ r.c=true;
   opcoes.forEach(function(l){
     var el = g('v'+l+'-'+qId);
     if(!el) return;
+    
+    el.classList.remove('sl');
+    
     if(cegas){
-      el.classList.add('nt');
+      if(l === r.v) el.classList.add('sl'); // Mantém a visualização da resposta escolhida
+      else el.classList.add('nt');
     } else {
       if(l === q.gabarito) el.classList.add('cv');
       else if(l === r.v && !r.ok) el.classList.add('ic');
       else el.classList.add('nt');
     }
-    el.classList.remove('sl');
   });
 
   var qel = g('q-'+qId);
   if(qel){
     qel.classList.remove('qa');
-    if(!cegas) qel.classList.add(r.ok ? 'qv' : 'qf');
-    if(cegas) qel.style.borderColor = '#9ca3af';
+    if(!cegas) {
+      qel.classList.add(r.ok ? 'qv' : 'qf');
+    } else {
+      qel.style.borderColor = '#e0e0e0';
+    }
   }
 
   var ew = g('ew-'+qId);
@@ -1146,6 +1152,8 @@ r.c=true;
     }, 1200); 
   }
 }
+
+
 
 function getQ(id){for(var i=0;i<D.blocos.length;i++)for(var j=0;j<D.blocos[i].questoes.length;j++)if(D.blocos[i].questoes[j].id===id)return D.blocos[i].questoes[j];return null;}
 function verBloco(nome){var b=null;for(var i=0;i<D.blocos.length;i++)if(D.blocos[i].nome===nome){b=D.blocos[i];break;}if(!b)return;if(b.questoes.every(function(q){return D.res[q.id]&&D.res[q.id].c;}))D.fin[nome]=true;prog();}
@@ -1169,9 +1177,62 @@ function setQA(id){
 var _saveTimer=null;
 var _saveTimer=null;
 function autoSaveDebounced(){clearTimeout(_saveTimer);_saveTimer=setTimeout(autoSave,800);}
-function cenSb(qId){setTimeout(function(){var sb=g('sb');var btn=sb.querySelector('.nb.at');if(!btn)return;var sr=sb.getBoundingClientRect(),br=btn.getBoundingClientRect();sb.scrollTop=(br.top+br.height/2-sr.top+sb.scrollTop)-sb.clientHeight/2;},50);}
+function cenSb(qId){
+  setTimeout(function(){
+    var sb = g('sb');
+    var btn = sb.querySelector('.nb.at');
+    if(!btn || !sb) return;
+    
+    // Se for a primeira questão, força a barra para o topo absoluto
+    if(D.blocos.length > 0 && D.blocos[0].questoes.length > 0 && qId === D.blocos[0].questoes[0].id) {
+      sb.scrollTop = 0;
+    } else {
+      // Centraliza apenas se o botão estiver fora da área visível atual
+      var sr = sb.getBoundingClientRect();
+      var br = btn.getBoundingClientRect();
+      if (br.top < sr.top || br.bottom > sr.bottom) {
+        sb.scrollTop = (br.top + br.height/2 - sr.top + sb.scrollTop) - sb.clientHeight/2;
+      }
+    }
+  }, 50);
+}
 function togExp(qId){var et=g('et-'+qId),be=et?et.previousElementSibling:null;if(!et||!be)return;var h=!et.style.display||et.style.display==='none';et.style.display=h?'block':'none';be.textContent=h?'Ocultar explicação ▾':'Ver explicação ▸';}
-function renderNav(){var nav=g('sbnav');nav.innerHTML='';var gi=0;D.blocos.forEach(function(b){var gr=document.createElement('div');gr.className='bg';var h=document.createElement('h3');h.textContent=b.nome;var gn=document.createElement('div');gn.className='gn';b.questoes.forEach(function(q){gi++;var btn=document.createElement('button');btn.className='nb';btn.textContent=gi;var resp=D.res[q.id]&&D.res[q.id].c;if(resp)btn.classList.add(D.res[q.id].ok?'ok':'er');else if(q.id===QA)btn.classList.add('at');else btn.classList.add('nr');btn.setAttribute('data-qid',q.id);btn.onclick=function(){var qid=parseInt(this.getAttribute('data-qid'));setQA(qid);setTimeout(function(){var el=g('q-'+qid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},100);fecharSb();};gn.appendChild(btn);});gr.appendChild(h);gr.appendChild(gn);nav.appendChild(gr);});}
+function renderNav(){
+  var nav=g('sbnav');nav.innerHTML='';var gi=0;
+  D.blocos.forEach(function(b){
+    var gr=document.createElement('div');gr.className='bg';
+    var h=document.createElement('h3');h.textContent=b.nome;
+    var gn=document.createElement('div');gn.className='gn';
+    b.questoes.forEach(function(q){
+      gi++;
+      var btn=document.createElement('button');btn.className='nb';btn.textContent=gi;
+      var resp=D.res[q.id]&&D.res[q.id].c;
+      
+      if(resp){
+        var cegas = C.cegas && !MODO_REVISAO;
+        if(cegas) {
+          btn.classList.add('rp'); // Neutra para não revelar o gabarito
+        } else {
+          btn.classList.add(D.res[q.id].ok?'ok':'er');
+        }
+      } else if(q.id===QA){
+        btn.classList.add('at');
+      } else {
+        btn.classList.add('nr');
+      }
+      
+      btn.setAttribute('data-qid',q.id);
+      btn.onclick=function(){
+        var qid=parseInt(this.getAttribute('data-qid'));
+        setQA(qid);
+        setTimeout(function(){var el=g('q-'+qid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},100);
+        fecharSb();
+      };
+      gn.appendChild(btn);
+    });
+    gr.appendChild(h);gr.appendChild(gn);nav.appendChild(gr);
+  });
+}
 function limpar(){
   D.res={};D.fin={};D.caderno=[];QA=null;
   if(SI>=0&&SIMS[SI]){
@@ -1486,6 +1547,7 @@ function importarJSON(e){
         else if(D.blocos[0] && D.blocos[0].questoes[0]) setQA(D.blocos[0].questoes[0].id);
       }
       autoSave();
+setTimeout(function(){ if(g('mc')) g('mc').scrollTop = 0; }, 100);
       fecharSb(); // Esconde menu no mobile se abriu por lá
     } catch(ex) { 
       alert('Erro ao ler o arquivo JSON: ' + ex); 
@@ -1581,8 +1643,11 @@ function carregarSessao(key){
         if(QA)setQA(QA);
         else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
         
-        // Restaura a função de scroll após a interface estar montada
-        setTimeout(function(){ cenSb = oldCenSb; }, 200);
+// Restaura a função de scroll e zera a rolagem do corpo
+      setTimeout(function(){ 
+        if(g('mc')) g('mc').scrollTop = 0;
+        cenSb = oldCenSb; 
+      }, 200);
       }
       
       autoSave();
@@ -1632,10 +1697,28 @@ function renderSessoes(){
   });
 }
 
-function toggleAuto(){
-  C.auto=!C.auto;
-  var track=g('auto-track');
-  if(track)track.classList.toggle('on',C.auto);
+// Ação do botão Modo às Cegas
+function toggleCegasSim() {
+  if (MODO_REVISAO) return; // Impede alteração após finalizar
+  C.cegas = !C.cegas;
+  syncTogglesUI();
+  
+  var mc = g('mc');
+  var scrollAtual = mc ? mc.scrollTop : 0;
+  
+  renderSim();
+  renderNav();
+  if (QA) setQA(QA);
+  
+  if (mc) mc.scrollTop = scrollAtual;
+  autoSave();
+}
+
+// Ação do botão Avanço Automático
+function toggleAutoSim() {
+  C.auto = (C.auto === false) ? true : false;
+  syncTogglesUI();
+  autoSave();
 }
 
 // Navegação direta (+1 avança, -1 recua)
@@ -1661,10 +1744,23 @@ function navQuestao(dir) {
   }
 }
 
-function toggleCegas(){
-  C.cegas=!C.cegas;
-  var track=g('cegas-track');
-  if(track)track.classList.toggle('on',C.cegas);
+// Sincroniza a cor e o ícone dos botões na barra superior
+function syncTogglesUI() {
+  var btnCegas = g('b1-cegas');
+  if (btnCegas) {
+    btnCegas.textContent = C.cegas ? '🙈' : '👁️';
+    btnCegas.title = C.cegas ? 'Desativar Modo às Cegas' : 'Ativar Modo às Cegas';
+    if (C.cegas) btnCegas.classList.add('p');
+    else btnCegas.classList.remove('p');
+  }
+
+  var btnAuto = g('b1-auto');
+  if (btnAuto) {
+    var isAuto = C.auto !== false; // Padrão é true
+    btnAuto.title = isAuto ? 'Desativar Avanço Automático' : 'Ativar Avanço Automático';
+    if (isAuto) btnAuto.classList.add('p');
+    else btnAuto.classList.remove('p');
+  }
 }
 
 function toggleCaderno(qId){
@@ -2114,6 +2210,7 @@ function abrirBiblioteca() {
                 else if(D.blocos[0] && D.blocos[0].questoes[0]) setQA(D.blocos[0].questoes[0].id);
               }
               autoSave();
+setTimeout(function(){ if(g('mc')) g('mc').scrollTop = 0; }, 100);
               document.body.removeChild(overlay); 
             })
             .catch(function(err) {
