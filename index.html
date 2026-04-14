@@ -444,37 +444,49 @@ function wsList(prefix,shared){
 }
 
 function autoSave(){
-  if(!window.storage)return;
-  if(!SIMS.length){wsDel(FP+':auto');return;}
-  if(SI>=0&&SIMS[SI]){
-    SIMS[SI].dados=JSON.parse(JSON.stringify(D));
-    SIMS[SI].qSalva=QA;
+  // Removida a trava do window.storage
+  if(!SIMS.length){ wsDel('clube_simulado_auto'); return; }
+  
+  if(SI >= 0 && SIMS[SI]){
+    SIMS[SI].dados = JSON.parse(JSON.stringify(D));
+    SIMS[SI].qSalva = QA;
   }
-  try{
-    var payload=JSON.stringify({sims:SIMS,si:SI});
-    wsSet(FP+':auto',payload).then(function(ok){
-      if(!ok) setTimeout(function(){wsSet(FP+':auto',payload);},2000);
-    });
-  }catch(e){}
+  
+  try {
+    var payload = JSON.stringify({ sims: SIMS, si: SI });
+    // Usando uma chave fixa para evitar problemas de identificação (fingerprint)
+    wsSet('clube_simulado_auto', payload);
+  } catch(e) {
+    console.error("Erro ao auto-salvar:", e);
+  }
 }
 
 function autoLoad(cb){
-  wsGet(FP+':auto').then(function(val){
-    if(!val){cb(false);return;}
-    try{
-      var saved=JSON.parse(val);
-      if(!saved.sims||!saved.sims.length){cb(false);return;}
-      SIMS=saved.sims;
-      SI=Math.min(saved.si||0,SIMS.length-1);
-      if(SI<0)SI=0;
-      var ul=SIMS[SI];
-      C=JSON.parse(JSON.stringify(ul.cfg));
-      D=JSON.parse(JSON.stringify(ul.dados));
-      QA=ul.qSalva||null;
-      HIST=SIMS.filter(function(s){return s.stats;}).map(function(s){return mkH(s,SIMS.indexOf(s));});
-      HI=HIST.length-1;
+  wsGet('clube_simulado_auto').then(function(val){
+    if(!val){ cb(false); return; }
+    try {
+      var saved = JSON.parse(val);
+      if(!saved.sims || !saved.sims.length){ cb(false); return; }
+      
+      SIMS = saved.sims;
+      SI = Math.min(saved.si || 0, SIMS.length - 1);
+      if(SI < 0) SI = 0;
+      
+      var ul = SIMS[SI];
+      C = JSON.parse(JSON.stringify(ul.cfg));
+      D = JSON.parse(JSON.stringify(ul.dados));
+      QA = ul.qSalva || null;
+      
+      // Reconstrói o histórico para a tela de resultados, se necessário
+      HIST = SIMS.filter(function(s){ return s.stats; })
+                 .map(function(s){ return mkH(s, SIMS.indexOf(s)); });
+      HI = HIST.length - 1;
+      
       cb(true);
-    }catch(e){cb(false);}
+    } catch(e) { 
+      console.error("Erro ao carregar auto-save:", e);
+      cb(false); 
+    }
   });
 }
 
@@ -916,7 +928,22 @@ function getQ(id){for(var i=0;i<D.blocos.length;i++)for(var j=0;j<D.blocos[i].qu
 function verBloco(nome){var b=null;for(var i=0;i<D.blocos.length;i++)if(D.blocos[i].nome===nome){b=D.blocos[i];break;}if(!b)return;if(b.questoes.every(function(q){return D.res[q.id]&&D.res[q.id].c;}))D.fin[nome]=true;prog();}
 function prog(){D.blocos.forEach(function(b,bi){var r=b.questoes.filter(function(q){return D.res[q.id]&&D.res[q.id].c;}).length;var el=g('pr-'+bi);if(el){el.textContent=r+' / '+b.questoes.length;if(r===b.questoes.length)el.style.color='#22c55e';}});}
 function avancar(qId){var found=false,next=null;outer:for(var i=0;i<D.blocos.length;i++)for(var j=0;j<D.blocos[i].questoes.length;j++){var q=D.blocos[i].questoes[j];if(found&&!(D.res[q.id]&&D.res[q.id].c)){next=q;break outer;}if(q.id===qId)found=true;}if(next){setQA(next.id);setTimeout(function(){var el=g('q-'+next.id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},100);}}
-function setQA(id){if(QA&&QA!==id){var p=g('q-'+QA);if(p)p.classList.remove('qa');}QA=id;var el=g('q-'+id);if(el&&!el.classList.contains('qv')&&!el.classList.contains('qf'))el.classList.add('qa');if(SI>=0&&SIMS[SI])SIMS[SI].qSalva=id;renderNav();cenSb(id);}
+function setQA(id){
+  if(QA && QA !== id){
+    var p = g('q-' + QA);
+    if(p) p.classList.remove('qa');
+  }
+  QA = id;
+  var el = g('q-' + id);
+  if(el && !el.classList.contains('qv') && !el.classList.contains('qf')) el.classList.add('qa');
+  if(SI >= 0 && SIMS[SI]) SIMS[SI].qSalva = id;
+  
+  renderNav();
+  cenSb(id);
+  autoSave(); // Salvamento automático a cada navegação
+}
+
+var _saveTimer=null;
 var _saveTimer=null;
 function autoSaveDebounced(){clearTimeout(_saveTimer);_saveTimer=setTimeout(autoSave,800);}
 function cenSb(qId){setTimeout(function(){var sb=g('sb');var btn=sb.querySelector('.nb.at');if(!btn)return;var sr=sb.getBoundingClientRect(),br=btn.getBoundingClientRect();sb.scrollTop=(br.top+br.height/2-sr.top+sb.scrollTop)-sb.clientHeight/2;},50);}
