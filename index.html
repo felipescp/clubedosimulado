@@ -421,23 +421,26 @@ var FP = (function(){
 })();
 
 function wsSet(key,val,shared){
-  if(!window.storage)return Promise.resolve(false);
-  return window.storage.set(key,val,shared||false)
-    .then(function(){return true;}).catch(function(){return false;});
+  try { localStorage.setItem(key,val); return Promise.resolve(true); }
+  catch(e) { return Promise.resolve(false); }
 }
 function wsGet(key,shared){
-  if(!window.storage)return Promise.resolve(null);
-  return window.storage.get(key,shared||false)
-    .then(function(r){return r&&r.value?r.value:null;}).catch(function(){return null;});
+  try { return Promise.resolve(localStorage.getItem(key)); }
+  catch(e) { return Promise.resolve(null); }
 }
 function wsDel(key,shared){
-  if(!window.storage)return Promise.resolve();
-  return window.storage.delete(key,shared||false).catch(function(){});
+  try { localStorage.removeItem(key); return Promise.resolve(); }
+  catch(e) { return Promise.resolve(); }
 }
 function wsList(prefix,shared){
-  if(!window.storage)return Promise.resolve([]);
-  return window.storage.list(prefix,shared||false)
-    .then(function(r){return r&&r.keys?r.keys:[];}).catch(function(){return[];});
+  try {
+    var keys = [];
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(k.indexOf(prefix) === 0) keys.push(k);
+    }
+    return Promise.resolve(keys);
+  } catch(e) { return Promise.resolve([]); }
 }
 
 function autoSave(){
