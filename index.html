@@ -213,11 +213,12 @@ body.dark .qe{color:#e0e2ee}
 .vfb.cv{border-color:#22c55e;background:#f0fdf4;color:#166534;cursor:default}
 .vfb.ic{border-color:#ef4444;background:#fef2f2;color:#991b1b;cursor:default}
 .vfb.nt{cursor:default;opacity:.45}
-body.dark .vfb{background:#2a2d3a;border-color:#3a3d50;color:#c0c4d8}
-body.dark .vfb.sl{background:#2563eb!important;border-color:#60a5fa!important;color:#fff!important}
-body.dark .vfb.cv{background:#064e3b!important;border-color:#10b981!important;color:#ecfdf5!important}
-body.dark .vfb.ic{background:#7f1d1d!important;border-color:#ef4444!important;color:#fef2f2!important}
-body.dark .vfb.nt{background:#1a1d26;opacity:.3}
+body.dark .vfb {background:#2a2d3a; border-color:#3a3d50; color:#c0c4d8}
+body.dark .vfb:hover {background:#34384a; border-color:#4a6cf7}
+body.dark .vfb.sl {background:#1e2a4a; border-color:#4a6cf7; color:#7a9cf7}
+body.dark .vfb.cv {background:#064e3b; border-color:#10b981; color:#ecfdf5}
+body.dark .vfb.ic {background:#7f1d1d; border-color:#ef4444; color:#fef2f2}
+body.dark .vfb.nt {background:#1a1d26; opacity:.3}
 .qac{display:flex;gap:.5rem;align-items:center;margin-top:1rem}
 .bconf{background:#4a6cf7;color:#fff;border:none;border-radius:8px;padding:.6rem 1.5rem;font-size:14px;cursor:pointer}
 .bconf:disabled{background:#ccc;cursor:default}
@@ -253,9 +254,7 @@ body.dark .mt td{border-color:#2a2d3a}
 .bw{background:#f0f0f0;border-radius:99px;height:8px;overflow:hidden}
 body.dark .bw{background:#2a2d3a}
 .bf{height:100%;border-radius:99px}
-.anb{background:#fff;border-radius:10px;border:0.5px solid #e0e0e0;padding:1.5rem;font-size:14px;line-height:1.8;color:#333}
-body.dark .anb{background:#1e2128;border-color:#2e3140;color:#a0a8c0}
-.anb h2{font-size:16px;font-weight:500;margin-bottom:1rem}
+
 .rbtns{display:flex;gap:.75rem;flex-wrap:wrap}
 .rba{border-radius:8px;padding:.7rem 2rem;font-size:14px;cursor:pointer;border:0.5px solid #ddd;background:#fff;color:#1a1a1a}
 .rba.p{background:#4a6cf7;color:#fff;border-color:#4a6cf7}
@@ -905,7 +904,22 @@ function mkQ(q, modoRevisao){
   return div;
 }
 
-function selVF(qId,v){if(!getQ(qId))return;if(D.res[qId]&&D.res[qId].c)return;if(!D.res[qId])D.res[qId]={};D.res[qId].v=v;var eV=g('vV-'+qId),eF=g('vF-'+qId);if(eV){eV.classList.remove('sl');if(v==='V')eV.classList.add('sl');}if(eF){eF.classList.remove('sl');if(v==='F')eF.classList.add('sl');}var bc=g('bc-'+qId);if(bc)bc.disabled=false;setQA(qId);}
+function selVF(qId,v){
+  if(!getQ(qId))return;
+  if(D.res[qId]&&D.res[qId].c)return;
+  if(!D.res[qId])D.res[qId]={};
+  D.res[qId].v=v;
+  var opcoes = ['V','F','A','B','C','D','E'];
+  opcoes.forEach(function(l){
+    var el = g('v'+l+'-'+qId);
+    if(el) {
+      el.classList.remove('sl');
+      if(l === v) el.classList.add('sl');
+    }
+  });
+  var bc=g('bc-'+qId);if(bc)bc.disabled=false;
+  setQA(qId);
+}
 function conf(qId){
   var q=getQ(qId),r=D.res[qId];if(!q||!r||!r.v)return;
   r.c=true;r.ok=r.v===q.gabarito;
@@ -989,9 +1003,7 @@ function renderResultado(idx){
       '<button class="rba" data-a="anki" data-i="'+idx+'">🃏 Exportar Anki</button>'+
       '<button class="rba" data-a="errostxt" data-i="'+idx+'">⬇ Erros (.txt)</button>'+
       '<button class="rba" data-a="refazer" data-i="'+idx+'">↺ Refazer Erradas</button>'+
-      '<button class="rba p" data-a="novo">+ Novo Simulado</button>'+
     '</div>'+
-    '<div class="anb"><h2>Análise de desempenho</h2><div id="anc"><div style="font-size:13px;color:#aaa;display:flex;align-items:center;gap:.5rem"><div class="sp" style="width:16px;height:16px;border-width:2px"></div>Gerando análise...</div></div></div>'+
     '<div style="background:#fff;border-radius:10px;border:0.5px solid #e0e0e0;padding:1.5rem" id="aud-wrap">'+
       '<h2 style="font-size:16px;font-weight:500;margin-bottom:1rem">Auditoria de Questões</h2>'+
       '<div class="aud-filtros" id="aud-filtros">'+
@@ -1014,7 +1026,6 @@ function renderResultado(idx){
     renderAuditoria(filtroAtivo,h);
   });
 
-  gerarAnalise(h);
   renderAuditoria('todas',h);
 }
 
@@ -1084,38 +1095,7 @@ function renderAuditoria(filtro,h){
     lista.innerHTML='<div style="font-size:13px;color:#aaa;text-align:center;padding:1.5rem">Nenhuma questão neste filtro.</div>';
   }
 }
-function gerarAnalise(h){
-  var s=h.stats,erros=[],taxErros={};
-  h.dados.blocos.forEach(function(b){b.questoes.forEach(function(q){
-    var r=h.dados.res[q.id];
-    if(r&&r.c&&!r.ok){
-      var tax=q.taxonomia||'Não classificada';
-      if(!taxErros[tax])taxErros[tax]=[];
-      taxErros[tax].push('['+b.nome+'] '+q.enunciado.substring(0,120)+'...');
-      erros.push('['+tax+']['+b.nome+'] '+q.enunciado.substring(0,120)+'... Gabarito:'+q.gabarito+(q.explicacao?' | '+q.explicacao.substring(0,100):''));
-    }
-  });});
-  var taxResumo=Object.keys(taxErros).map(function(t){return'- '+t+': '+taxErros[t].length+' erro(s)';}).join('\n');
-  var p='Analise o desempenho no simulado "'+h.nome+'".\n\nRESULTADOS: '+s.resp+' respondidas | '+s.ac+' acertos | '+erros.length+' erros | '+s.pct+'%\nPOR TEMA:\n'+s.pb.map(function(b){return'- '+b.nome+': '+b.ac+'/'+b.resp+(b.pct!==null?' ('+b.pct+'%)':'');}).join('\n')+(taxResumo?'\n\nERROS POR TAXONOMIA JURÍDICA:\n'+taxResumo:'')+(erros.length?'\n\nQUESTÕES ERRADAS (com taxonomia):\n'+erros.join('\n'):'')+'\n\nForneça análise em 5 partes:\n1. DIAGNÓSTICO GERAL\n2. ANÁLISE DE CADA ERRO\n3. PADRÕES NOS ERROS\n4. PONTOS FORTES\n5. PLANO DE REVISÃO\n\nSeja específico e técnico.';
-  function renderAnalise(txt){
-    var el=g('anc');if(!el)return;
-    if(!txt){el.innerHTML='<p style="color:#aaa;font-size:13px">Análise indisponível.</p>';return;}
-    el.innerHTML=txt.split(/\n\n+/).map(function(x){var t=x.trim();if(!t)return'';if(/^\d+\./.test(t))return'<p style="margin-bottom:.75rem;font-weight:500;color:#4a6cf7">'+t+'</p>';return'<p style="margin-bottom:.75rem;font-size:14px;line-height:1.8">'+t+'</p>';}).join('');
-  }
-  // Cache: se análise já foi gerada, reutilizar sem nova requisição
-  var si=h.si!==undefined?h.si:-1;
-  if(si>=0&&SIMS[si]&&SIMS[si].analiseIA){
-    renderAnalise(SIMS[si].analiseIA);
-    return;
-  }
-  apiT(p,function(txt){
-    renderAnalise(txt);
-    if(txt&&si>=0&&SIMS[si]){
-      SIMS[si].analiseIA=txt;
-      autoSave();
-    }
-  });
-}
+
 function calcStats(){var todas=D.blocos.reduce(function(a,b){return a.concat(b.questoes);},[]);var resp=todas.filter(function(q){return D.res[q.id]&&D.res[q.id].c;});var ac=resp.filter(function(q){return D.res[q.id].ok;}).length;var p=resp.length?Math.round(ac/resp.length*100):0;var pb=D.blocos.map(function(b){var qs=b.questoes.filter(function(q){return D.res[q.id]&&D.res[q.id].c;});var a=qs.filter(function(q){return D.res[q.id].ok;}).length;return{nome:b.nome,total:b.questoes.length,resp:qs.length,ac:a,pct:qs.length?Math.round(a/qs.length*100):null};});return{total:todas.length,resp:resp.length,ac:ac,pct:p,pb:pb};}
 
 // ── COMANDOS MOBILE E NAVEGAÇÃO ─────────────────────────────────────────
