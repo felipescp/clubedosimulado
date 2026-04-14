@@ -1,0 +1,229 @@
+{
+  "versao": 1,
+  "exportadoEm": "2026-04-14T03:11:59.842Z",
+  "sims": [
+    {
+      "cfg": {
+        "nome": "ECA",
+        "tipo": "ce",
+        "cegas": false
+      },
+      "dados": {
+        "blocos": [
+          {
+            "nome": "Direitos Fundamentais, Competência e Regras Processuais",
+            "questoes": [
+              {
+                "id": 1,
+                "enunciado": "Durante procedimento no Juizado da Infância e da Juventude, a Defensoria Pública apresentou manifestação fora do prazo simples, mas dentro da contagem em dobro. O juízo, aplicando o art. 152, § 2º, do ECA (que veda prazo em dobro para a Fazenda Pública e o Ministério Público), considerou a manifestação intempestiva por interpretação sistemática, sob o argumento de que a celeridade dos feitos infracionais impede a prerrogativa para todas as instituições.",
+                "gabarito": "F",
+                "explicacao": "Segundo a jurisprudência do STJ, a vedação expressa do art. 152, § 2º, do ECA limita-se à **Fazenda Pública e ao Ministério Público**. O silêncio legislativo é interpretado como escolha deliberada de **manter a prerrogativa para a Defensoria Pública**, sendo legítimo o acréscimo de prazo como medida que harmoniza a prioridade da infância com a paridade de armas, não havendo intempestividade na hipótese.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 2,
+                "enunciado": "Joana, mãe de Marcos (8 anos), ajuizou ação de modificação de guarda na comarca onde passou a residir com a criança após fugir do ex-marido por agressões. O genitor, requerendo a guarda para si, suscitou incompetência, alegando que o domicílio anterior, fixado na primeira decisão de guarda, seria o competente (Súmula 383/STJ). O juiz manteve o processo no novo domicílio da mãe.",
+                "gabarito": "V",
+                "explicacao": "O STJ entende que a **Súmula 383/STJ pode ser mitigada**. Com fundamento nos princípios da proteção integral e do **juízo imediato**, é do **melhor interesse da criança** o processamento da ação no foro em que exerce seu direito à convivência, especialmente diante de **indícios de violência doméstica**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 3,
+                "enunciado": "Maria e Pedro, divorciados, divergem sobre a viagem de sua filha menor, Clara, para o exterior, a convite dos avós maternos. Como Pedro se recusa a autorizar, Maria busca suprimento judicial do consentimento na Vara de Família, alegando que não há situação de risco, tratando-se apenas de dissenso entre os genitores.",
+                "gabarito": "F",
+                "explicacao": "O suprimento judicial para expedição de passaporte e viagem internacional de menor **insere-se na competência do Juizado da Infância e da Juventude** (art. 148, parágrafo único, \"d\", do ECA). É **desnecessária a comprovação de situação de risco** nos moldes do art. 98 do ECA para firmar essa competência.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 4,
+                "enunciado": "Em um caso envolvendo a destituição do poder familiar, o magistrado indeferiu a conversão do julgamento em diligência para a realização de um novo estudo psicossocial. Inconformada e visando maior celeridade, a Defensoria Pública impetrou habeas corpus para impugnar a decisão.",
+                "gabarito": "F",
+                "explicacao": "O STJ firmou o entendimento de que o **habeas corpus não é meio adequado** para discutir questões de direito de família, como guarda, adoção e destituição do poder familiar, nem para impugnar decisão que negou a conversão de julgamento em diligência para **estudo psicossocial**, pois demandam análise aprofundada de provas e não envolvem ameaça à liberdade de locomoção.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 5,
+                "enunciado": "Após sentença de destituição do poder familiar proferida em desfavor dos genitores de Lucas, o juízo determinou o início do estágio de convivência do menor com uma família substituta cadastrada para adoção, mesmo pendente o trânsito em julgado da decisão de destituição. A Defensoria impetrou habeas corpus para suspender o estágio.",
+                "gabarito": "F",
+                "explicacao": "O STJ entende que a notória inviabilidade de manutenção do poder familiar autoriza o **início do procedimento de adoção antes do trânsito em julgado** da sentença de destituição. Além disso, o habeas corpus não é adequado para impugnar a colocação em família substituta quando já iniciado o estágio de convivência.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 6,
+                "enunciado": "Em ação de adoção, os pais adotivos de uma criança, já inserida em estágio de convivência há mais de um ano, foram surpreendidos pelo surgimento de um parente consanguíneo que pleiteou a guarda, fundamentando-se no princípio da prioridade da família natural e extensa, alegando a preponderância absoluta dessa regra do ECA.",
+                "gabarito": "F",
+                "explicacao": "O STJ estabelece que o princípio da **prioridade da família natural/extensa não é absoluto**, sofrendo flexibilização conforme o caso concreto. Nos casos em que não há vínculo prévio com o parente e já existe **laço socioafetivo consolidado** com a família substituta, deve prevalecer o **melhor interesse da criança**, evitando-se rompimentos de vínculos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              },
+              {
+                "id": 7,
+                "enunciado": "O princípio da proteção integral assegura à criança o direito ao cuidado em saúde. Com base nisso, o Ministério Público ingressou com ação para aplicar penalidade pecuniária aos pais de uma adolescente de 11 anos que, mesmo advertidos pelo Conselho Tutelar, recusaram-se injustificadamente a vaciná-la contra a COVID-19, alegando autonomia familiar.",
+                "gabarito": "V",
+                "explicacao": "A recusa injustificada dos pais em vacinar os filhos, quando recomendada por autoridades sanitárias (como no caso da COVID-19), e após advertência, caracteriza descumprimento de dever inerente ao poder familiar, autorizando a aplicação da sanção pecuniária (**multa**) prevista no **art. 249 do ECA**.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Direitos Fundamentais, Competência e Regras Processuais"
+              }
+            ]
+          },
+          {
+            "nome": "Atos Infracionais e Medidas Socioeducativas",
+            "questoes": [
+              {
+                "id": 8,
+                "enunciado": "Durante julgamento de apelação em procedimento de apuração de ato infracional, a Câmara do Tribunal de Justiça, por maioria, deu provimento ao recurso da defesa para desclassificar a conduta imputada ao adolescente. O Ministério Público invocou a técnica do julgamento ampliado (art. 942 do CPC) para reverter o resultado.",
+                "gabarito": "F",
+                "explicacao": "Segundo o STJ, a técnica do art. 942 do CPC **não deve ser aplicada quando a decisão não unânime for favorável ao menor infrator**, sob pena de submetê-lo a condição mais gravosa, contrariando o dever de proteção integral. O julgamento ampliado é garantido apenas em **hipóteses de divergência desfavoráveis** ao adolescente.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 9,
+                "enunciado": "Em um procedimento para apuração de ato infracional análogo a roubo, o juiz encerrou a instrução sem realizar o interrogatório do adolescente infrator, baseando-se apenas na oitiva realizada na audiência de apresentação inicial. A defesa, em alegações finais, alegou nulidade por cerceamento de defesa, requerendo a aplicação do CPP.",
+                "gabarito": "V",
+                "explicacao": "O STJ consolidou o entendimento (Tema 1269) de que, no rito do ECA, **aplica-se subsidiariamente o art. 400 do CPP**. Portanto, além da audiência de apresentação (art. 184 do ECA), é obrigatório garantir ao adolescente o **interrogatório ao final da instrução**. A ausência gera nulidade se alegada na primeira oportunidade.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 10,
+                "enunciado": "O juiz da Infância e da Juventude, ao receber representação por ato infracional, realizou a audiência de apresentação do adolescente. Diante da confissão do jovem na própria audiência, e visando à celeridade processual, o juiz julgou imediatamente procedente a representação, aplicando medida socioeducativa de liberdade assistida, dispensando a instrução probatória.",
+                "gabarito": "F",
+                "explicacao": "De acordo com o STJ, é **vedada a atividade probatória na audiência de apresentação**, e eventual colheita de confissão nessa oportunidade **não poderá, de per se, lastrear a procedência** da representação, sendo imprescindível a instrução e o interrogatório ao final.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              }
+            ]
+          },
+          {
+            "nome": "Atos Infracionais e Medidas Socioeducativas",
+            "questoes": [
+              {
+                "id": 11,
+                "enunciado": "Em um procedimento da Vara da Infância, o juiz aplicou a João uma medida socioeducativa de internação sem termo determinado. Posteriormente, ao calcular o prazo prescricional para execução da medida, o magistrado considerou o tempo efetivo que João, à época com 17 anos, poderia cumprir até completar os 21 anos (ou seja, 4 anos).",
+                "gabarito": "F",
+                "explicacao": "Segundo a jurisprudência, tratando-se de medida aplicada sem termo, o prazo prescricional deve ter como parâmetro a **duração máxima da internação (3 anos)**, e não o tempo da medida que poderia efetivamente ser cumprida até o adolescente completar 21 anos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              },
+              {
+                "id": 12,
+                "enunciado": "Adriano cumpria medida socioeducativa de internação por um ato infracional cometido quando adolescente. Ao completar 20 anos, foi preso em flagrante e sentenciado criminalmente por um roubo. Ciente disso, o juízo da execução socioeducativa extinguiu a medida de internação, sob o fundamento de que, devido ao seu perfil agravado e idade, não restavam mais objetivos pedagógicos.",
+                "gabarito": "V",
+                "explicacao": "Nos termos do **art. 46, § 1º, da Lei nº 12.594/2012 (Lei do SINASE)** e da jurisprudência do STJ, se o **maior de 18 anos** em cumprimento de medida socioeducativa responder a processo-crime, é **válida a decisão do juízo que extingue a execução** se entender que não restam objetivos pedagógicos, cientificando-se o juízo criminal competente.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Atos Infracionais e Medidas Socioeducativas"
+              }
+            ]
+          },
+          {
+            "nome": "Convivência Familiar e Adoção",
+            "questoes": [
+              {
+                "id": 13,
+                "enunciado": "Um casal ajuizou ação de adoção de uma criança indígena. O magistrado estadual, ao constatar a origem da criança, determinou a intimação da FUNAI e, de ofício, declinou da competência para a Justiça Federal, sob o fundamento de que a intervenção obrigatória da autarquia federal atrai a competência cível da União.",
+                "gabarito": "F",
+                "explicacao": "Conforme o STJ, a intervenção da **FUNAI, ainda que obrigatória** (art. 28, § 6º, III, do ECA), **não atrai a competência automática da Justiça Federal**. A competência continua sendo da **Justiça Estadual**, pois o procedimento de adoção trata de direito privado (melhor interesse da criança), só havendo atração federal se houvesse controvérsia sobre direitos indígenas coletivos.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 14,
+                "enunciado": "Com o falecimento do filho e da nora, os avós paternos assumiram a criação da neta recém-nascida. Anos depois, requereram a adoção da criança. O Ministério Público opinou pelo indeferimento de plano, alegando que o art. 42, § 1º, do ECA proíbe terminantemente a adoção de netos pelos avós, não comportando exceções.",
+                "gabarito": "F",
+                "explicacao": "Embora a redação literal do **§ 1º do art. 42 do ECA proíba a adoção avoenga** (adoção do neto pelos avós), o STJ admite que **isso ocorra em situações excepcionais**. O dispositivo comporta mitigação para atender ao melhor interesse da criança.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 15,
+                "enunciado": "Roberto foi adotado ainda criança contra a sua vontade íntima, mas não teve meios de se opor na época. Após atingir a maioridade, ingressou com ação judicial postulando a rescisão da sentença concessiva de adoção. O juiz rejeitou o pedido liminarmente, sob o argumento de que a irrevogabilidade da adoção (art. 39, § 1º, do ECA) é uma regra de caráter absoluto.",
+                "gabarito": "F",
+                "explicacao": "O STJ consolidou que a regra da **irrevogabilidade da adoção não é absoluta**. A interpretação sistemática e teleológica do ECA autoriza a **rescisão da sentença** quando verificado que o adotado, à época da adoção, **não a desejava verdadeiramente** e, após atingir a maioridade, manifesta-se formalmente nesse sentido, visto que a manutenção não satisfaz o seu melhor interesse.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 16,
+                "enunciado": "Em um processo de adoção, a pretendente possuía 30 anos e a adolescente adotanda 16 anos, perfazendo uma diferença de idade de 14 anos entre as partes. O Ministério Público requereu o indeferimento da medida por ausência de preenchimento de requisito legal objetivo, mas o juiz, baseando-se no vínculo afetivo consolidado, deferiu a adoção.",
+                "gabarito": "V",
+                "explicacao": "O entendimento jurisprudencial do STJ preconiza que a diferença etária mínima de **16 anos** entre adotante e adotado, prevista no **art. 42, § 3º, do ECA, não é absoluta**, podendo ser relativizada dadas as peculiaridades do caso concreto e no melhor interesse do adotando.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              },
+              {
+                "id": 17,
+                "enunciado": "Viviane, passando por dificuldades financeiras, entregou sua filha Laura para adoção. Laura foi adotada por um casal, mas Viviane continuou mantendo contato próximo e afetivo com a menina. Quando Laura atingiu 18 anos, com concordância unânime, Viviane requereu judicialmente a adoção de sua própria filha biológica. O magistrado, no entanto, afirmou que o pedido é juridicamente impossível.",
+                "gabarito": "F",
+                "explicacao": "O STJ entende que a **lei não proíbe expressamente** que uma pessoa seja novamente adotada. O pedido de nova adoção formulado pela **mãe biológica** em relação à filha adotada na infância por outrem **não é juridicamente impossível**, pois a irrevogabilidade visa apenas vedar que os primeiros adotantes se arrependam.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Convivência Familiar e Adoção"
+              }
+            ]
+          },
+          {
+            "nome": "Crimes e Infrações Administrativas",
+            "questoes": [
+              {
+                "id": 18,
+                "enunciado": "Caio foi flagrado fornecendo cerveja para um adolescente de 15 anos em dezembro de 2013. Ao ser processado pelo crime previsto no art. 243 do ECA, a defesa alegou atipicidade penal, afirmando que na data dos fatos a conduta não constituía o crime em tela.",
+                "gabarito": "V",
+                "explicacao": "Segundo a **Súmula 669-STJ**, o fornecimento de bebida alcóolica a criança ou adolescente configura o **crime previsto no art. 243 do ECA** apenas após o advento da **Lei n. 13.106, de 17 de março de 2015**. Logo, a alegação defensiva está correta em virtude da irretroatividade da lei penal mais gravosa.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              },
+              {
+                "id": 19,
+                "enunciado": "Marcos foi denunciado por baixar e armazenar imagens de pornografia infantil (art. 241-B do ECA) e por disponibilizar tais imagens para terceiros na internet (art. 241-A do ECA). O magistrado condenou Marcos apenas por disponibilizar, aplicando o princípio da consunção, considerando o armazenamento um mero meio de execução para o fim de disponibilizar.",
+                "gabarito": "F",
+                "explicacao": "Os tipos penais dos **arts. 241-A e 241-B são autônomos**. O STJ entende que o crime do art. 241-B **não configura fase normal, tampouco meio de execução** para o crime do art. 241-A, o que possibilita o reconhecimento de **concurso material** de crimes.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              },
+              {
+                "id": 20,
+                "enunciado": "Tício (maior de idade) praticou crime de furto em companhia de Mévio (adolescente). Durante a instrução do crime de corrupção de menores (art. 244-B do ECA), a defesa provou que Mévio já havia praticado três atos infracionais anteriores graves, pedindo a absolvição de Tício sob o argumento de que o menor já era previamente corrompido.",
+                "gabarito": "F",
+                "explicacao": "De acordo com a **Súmula 500-STJ**, a configuração do crime previsto no art. 244-B do ECA **independe da prova da efetiva corrupção** do menor, por se tratar de **delito formal**. O fato de o adolescente já ser envolvido na criminalidade não afasta a configuração do delito.",
+                "taxonomia": null,
+                "alternativas": null,
+                "bn": "Crimes e Infrações Administrativas"
+              }
+            ]
+          }
+        ],
+        "res": {},
+        "fin": {},
+        "caderno": []
+      },
+      "stats": null,
+      "qSalva": 1,
+      "data": "2026-04-12T17:50:19.732Z"
+    }
+  ],
+  "si": 0
+}
