@@ -33,6 +33,28 @@ body.dark .nb.nr:hover { border-color: #4a6cf7 !important; color: #7a9cf7 !impor
 body.dark .qe { color: #e8eaf0 !important; }
 body.dark #sb-toggle, body.dark #top-toggle { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
 body.dark #sb-overlay { background: rgba(0, 0, 0, 0.7); }
+
+/* Classes para ícones na barra superior (Corrigido para Firefox) */
+.b1-icon { 
+  padding: 0 0.6rem !important; 
+  font-size: 16px !important; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 32px; /* Força uma altura fixa */
+  flex-shrink: 0; /* Impede a compressão do flexbox */
+}
+
+/* Caixas modulares da barra lateral (Sem borda, cor sólida e sombra suave) */
+.sb-box { background: #ffffff; border: none; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+body.dark .sb-box { background: #1a1d26; box-shadow: none; }
+
+/* Linha divisória da barra lateral (Invisível, servindo apenas como espaçamento) */
+.sb-hr { border: none; margin: 0 0 1rem 0; height: 0; }
+
+/* Ajuste no H2 para encaixar perfeitamente nas caixas */
+#sb .sb-box h2 { margin-top: 0 !important; }
+
 #barra2{background:#fff;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:stretch;flex-shrink:0;min-height:38px;overflow-x:auto}
 #barra2::-webkit-scrollbar{height:3px}
 #barra2::-webkit-scrollbar-thumb{background:#ddd;border-radius:99px}
@@ -69,7 +91,7 @@ body.dark .tab-nome{color:#666}
 .sb:hover{border-color:#4a6cf7;color:#4a6cf7}
 .sb.d{color:#ef4444;border-color:#fca5a5}
 .sb.d:hover{background:#fef2f2}
-#tela-config{align-items:center;justify-content:center;padding:2rem;gap:1.5rem;overflow-y:auto}
+#tela-config{align-items:center;justify-content:flex-start;padding:1rem 2rem;gap:1.5rem;overflow-y:auto}
 .sess-card{background:#fff;border-radius:12px;border:0.5px solid #ddd;padding:1.25rem 1.5rem;width:100%;max-width:500px;display:flex;flex-direction:column;gap:.6rem}
 .sess-card h2{font-size:13px;font-weight:500;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
 body.dark .sess-card{background:#1e2128;border-color:#2e3140}
@@ -109,7 +131,7 @@ body.dark .ro{background:#2a2d3a;border-color:#3a3d50;color:#a0a8c0}
 body.dark .ro.sel{background:#1e2a4a;border-color:#4a6cf7;color:#7a9cf7}
 body.dark input[type=number],body.dark input[type=text]{background:#2a2d3a;border-color:#3a3d50;color:#e0e2ee}
 body.dark .cl{color:#888}
-#tela-upload{align-items:center;justify-content:center;padding:2rem;gap:1.25rem;overflow-y:auto}
+#tela-upload{align-items:center;justify-content:flex-start;padding:1rem 2rem;gap:1.25rem;overflow-y:auto}
 .ures{background:#eef1ff;border-radius:8px;padding:.75rem 1.25rem;font-size:13px;color:#4a6cf7;width:100%;max-width:600px;line-height:1.7}
 .mbadge{display:inline-block;background:#4a6cf7;color:#fff;border-radius:5px;padding:1px 8px;font-size:11px;font-weight:500;margin-right:6px}
 .mbadge.g{background:#22c55e}
@@ -165,6 +187,26 @@ body.dark #paste-area{background:#1e2128;border-color:#3a3d50;color:#e0e2ee}
   #sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 240; }
   #sb-overlay.open { display: block; }
 }
+
+/* Estilo dos novos botões de navegação Mobile (< e >) */
+  .nav-toggle {
+    display: flex !important; position: fixed; bottom: 1.25rem; z-index: 290;
+    width: 44px; height: 44px; border-radius: 50%; color: #555; background: #fff;
+    border: 0.5px solid #ddd; font-size: 16px; font-weight: bold; cursor: pointer;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s ease;
+  }
+  body.dark .nav-toggle { background: #2a2d3a; border-color: #3a3d50; color: #a0a8c0; }
+  
+  /* Posicionamento centrado, lado a lado */
+  #nav-prev { right: 50%; margin-right: 5px; }
+  #nav-next { left: 50%; margin-left: 5px; }
+
+  /* Lógica de Ocultação: Se o menu superior ou lateral abrir, oculta a navegação */
+  body.top-aberto .nav-toggle { opacity: 0; pointer-events: none; transform: translateY(20px); }
+  body.sb-aberta .nav-toggle { opacity: 0; pointer-events: none; transform: translateY(20px); }
+
+
 
 body.dark #sb{background:rgba(20,22,30,.92);border-color:#2e3140}
 #sb h2{font-size:12px;font-weight:500;color:#aaa;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
@@ -331,23 +373,32 @@ body.dark .mod-exp-item { background: #1a1d26; border-color: #252830; }
 body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
 .mod-exp-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 .mod-exp-name { font-size: 14px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- Escala de 170% Exclusiva para Desktop --- */
+@media (min-width: 701px) {
+  body {
+    zoom: 1.7; /* Suportado de forma nativa no Chrome, Safari e Firefox moderno */
+  }
+}
+
+
 </style>
 </head>
 <body>
 
 <div id="barra1">
-  <button class="b1" id="b1-limpar" disabled>Limpar simulado</button>
+  <button class="b1 b1-icon" id="b1-limpar" disabled title="Limpar simulado">🧹</button>
   <div class="b1sep"></div>
-  <button class="b1 p" id="b1-novo">+ Novo simulado</button>
+  <button class="b1 p b1-icon" id="b1-novo" title="Novo simulado">➕</button>
   
-  <button class="b1" id="b1-biblioteca" onclick="abrirBiblioteca()" style="color:#059669; border-color:#a7f3d0; background:#ecfdf5; font-weight:500;">📚 Biblioteca</button>
+<button class="b1 b1-icon" id="b1-biblioteca" onclick="abrirBiblioteca()" title="Biblioteca de Simulados">📚</button>
 
-  <button class="b1" id="b1-export-novo" onclick="abrirModalExportacao()">Exportar JSON</button>
-  <label class="b1" style="cursor:pointer">Importar JSON<input type="file" accept=".json" id="b1-import" style="display:none"></label>
-<button class="b1" id="b1-reset">↺ Nova sessão</button>
-<button class="b1" id="b1-som" title="Ativar/Desativar Som" style="font-size:16px; padding:0.1rem 0.5rem">🔇</button>
-  <button class="b1 w" id="b1-tema">☀</button>
-</div> 
+  <button class="b1 b1-icon" id="b1-export-novo" onclick="abrirModalExportacao()" title="Exportar JSON">📤</button>
+  <label class="b1 b1-icon" style="cursor:pointer" title="Importar JSON">📥<input type="file" accept=".json" id="b1-import" style="display:none"></label>
+  
+  <div style="flex:1"></div> <button class="b1 b1-icon" id="b1-som" title="Ativar/Desativar Som">🔇</button>
+  <button class="b1 w b1-icon" id="b1-tema" title="Alternar Modo Claro/Escuro">☀</button>
+</div>
 
 <div id="barra2"></div>
   
@@ -368,6 +419,14 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
         <span class="toggle-label">Responder às cegas (Modo Estrito)<br><small style="color:#aaa;font-size:11px">Oculta acertos/erros e explicações até finalizar</small></span>
       </div>
     </div>
+
+<div style="margin-top: 0.5rem;">
+      <div class="toggle-wrap" id="auto-wrap" onclick="toggleAuto()">
+        <div class="toggle-track on" id="auto-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label">Avanço Automático<br><small style="color:#aaa;font-size:11px">Avança para a próxima questão automaticamente</small></span>
+      </div>
+    </div>
+
     <button class="bp" id="cfg-ok" disabled>Continuar</button>
   </div>
   <div class="sess-card" id="cfg-sess-card">
@@ -395,17 +454,40 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
   <div id="sim-wrap">
     <div id="sb-overlay" onclick="toggleSb()"></div>
     <div id="mc"></div>
-    <div id="sb">
-      <button class="b1 p" id="b1-finalizar" style="width:100%;margin-bottom:.5rem;background:#22c55e;border-color:#16a34a;font-size:13px">✓ Finalizar Simulado</button>
-      <button class="b1" id="b1-exp-res" style="width:100%;margin-bottom:1rem;font-size:12px">⬇ Exportar resultado</button>
-      <h2 style="margin-top:.5rem">Sessões salvas</h2>
-      <input type="text" class="sess-input" id="sess-nome" placeholder="Nome da sessão...">
-      <button class="b1 p" id="b1-salvar-sess" style="width:100%;margin-bottom:1rem;font-size:11px">＋ Salvar sessão atual</button>
-      <div id="sess-lista"></div>
-      <h2 style="margin-top:1rem">Questões</h2>
-      <div id="sbnav"></div>
+
+<div id="sb">
+      
+      <div class="sb-box">
+        <button class="b1 p" id="b1-finalizar" style="width:100%;margin-bottom:.5rem;background:#22c55e;border-color:#16a34a;font-size:13px">✓ Finalizar Simulado</button>
+        <button class="b1" id="b1-exp-res" style="width:100%;font-size:12px">⬇ Exportar resultado</button>
+      </div>
+      
+      <hr class="sb-hr">
+      
+<div class="sb-box">
+        <h2 style="text-align:center; margin-bottom:1rem;">Sessões</h2>
+        
+        <div style="display:flex; gap:0.3rem; align-items:center; margin-bottom:1rem;">
+          <button class="b1" id="b1-reset" title="Criar nova sessão limpa" style="padding:0.2rem 0.4rem; font-size:12px; height:28px;">➕</button>
+          <input type="text" class="sess-input" id="sess-nome" placeholder="Nomeie a sessão..." style="margin-bottom:0; flex:1; font-size:11px; padding:0.2rem 0.4rem; height:28px;">
+          <button class="b1 p b1-icon" id="b1-salvar-sess" title="Salvar sessão atual" style="padding:0 0.4rem; font-size:13px; height:28px; display:flex; align-items:center; justify-content:center;">💾</button>
+        </div>
+        
+        <div id="sess-lista"></div>
+      </div>
+      
+      <hr class="sb-hr">
+      
+      <div class="sb-box" style="padding-bottom: 2rem; border-bottom: none;">
+        <h2 style="text-align:center; margin-bottom:1rem;">Questões</h2>
+        <div id="sbnav"></div>
+      </div>
+
     </div>
-    <button id="sb-toggle" onclick="toggleSb()" title="Navegação">☰</button>
+
+<button id="sb-toggle" onclick="toggleSb()" title="Navegação">☰</button>
+    <button class="nav-toggle" id="nav-prev" onclick="navQuestao(-1)" title="Questão Anterior">❮</button>
+    <button class="nav-toggle" id="nav-next" onclick="navQuestao(1)" title="Próxima Questão">❯</button>
   </div>
 </div>
 
@@ -552,7 +634,7 @@ function autoLoad(cb){
 }
 
 var SIMS=[],SI=-1,HIST=[],HI=-1;
-var C={nome:'',tipo:'ce',cegas:false};
+var C={nome:'',tipo:'ce',cegas:false,auto:true};
 var D={blocos:[],res:{},fin:{},caderno:[]};
 var QA=null;
 var DARK=false;
@@ -1057,11 +1139,14 @@ r.c=true;
   renderTabs();
   autoSave();
 
-  // Aplica um delay de 1.2 segundos (1200ms) antes de pular para a próxima
-  setTimeout(function(){
-    avancar(qId);
-  }, 1200); 
+// Aplica um delay de 1.2 segundos, SÓ SE o avanço automático estiver ligado
+  if (C.auto !== false) {
+    setTimeout(function(){
+      avancar(qId);
+    }, 1200); 
+  }
 }
+
 function getQ(id){for(var i=0;i<D.blocos.length;i++)for(var j=0;j<D.blocos[i].questoes.length;j++)if(D.blocos[i].questoes[j].id===id)return D.blocos[i].questoes[j];return null;}
 function verBloco(nome){var b=null;for(var i=0;i<D.blocos.length;i++)if(D.blocos[i].nome===nome){b=D.blocos[i];break;}if(!b)return;if(b.questoes.every(function(q){return D.res[q.id]&&D.res[q.id].c;}))D.fin[nome]=true;prog();}
 function prog(){D.blocos.forEach(function(b,bi){var r=b.questoes.filter(function(q){return D.res[q.id]&&D.res[q.id].c;}).length;var el=g('pr-'+bi);if(el){el.textContent=r+' / '+b.questoes.length;if(r===b.questoes.length)el.style.color='#22c55e';}});}
@@ -1228,6 +1313,7 @@ function toggleSb(){
   var sb = g('sb'), ov = g('sb-overlay'), btn = g('sb-toggle');
   if(!sb || !btn) return;
   var open = sb.classList.toggle('open');
+  document.body.classList.toggle('sb-aberta', open); // <-- Nova linha adicionada
   if(ov) ov.classList.toggle('open', open);
   btn.textContent = open ? '×' : '☰';
   if(open) renderSessoes();
@@ -1481,8 +1567,24 @@ function carregarSessao(key){
       HIST=SIMS.filter(function(s){return s.stats;}).map(function(s){return mkH(s,SIMS.indexOf(s));});
       HI=HIST.length-1;
       renderTabs();
-      if(ul.stats&&HI>=0){renderResultado(HI);tela('tela-resultado');}
-      else{tela(null);g('tela-simulado').style.display='flex';renderSim();renderNav();if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);}
+      
+      if(ul.stats&&HI>=0){
+        renderResultado(HI);tela('tela-resultado');
+      } else {
+        tela(null);g('tela-simulado').style.display='flex';
+        renderSim();renderNav();
+        
+        // Bloqueia temporariamente o auto-scroll (pulso para baixo) ao carregar a sessão
+        var oldCenSb = cenSb;
+        cenSb = function(){}; // Função vazia
+        
+        if(QA)setQA(QA);
+        else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
+        
+        // Restaura a função de scroll após a interface estar montada
+        setTimeout(function(){ cenSb = oldCenSb; }, 200);
+      }
+      
       autoSave();
       fecharSb();
     }catch(e){}
@@ -1528,6 +1630,35 @@ function renderSessoes(){
       });
     });
   });
+}
+
+function toggleAuto(){
+  C.auto=!C.auto;
+  var track=g('auto-track');
+  if(track)track.classList.toggle('on',C.auto);
+}
+
+// Navegação direta (+1 avança, -1 recua)
+function navQuestao(dir) {
+  var idx = -1;
+  var flatQs = [];
+  D.blocos.forEach(function(b){ b.questoes.forEach(function(q){ flatQs.push(q); }); });
+  
+  for (var i = 0; i < flatQs.length; i++) {
+    if (flatQs[i].id === QA) { idx = i; break; }
+  }
+  
+  if (idx !== -1) {
+    var nextIdx = idx + dir;
+    if (nextIdx >= 0 && nextIdx < flatQs.length) {
+      var nextId = flatQs[nextIdx].id;
+      setQA(nextId);
+      setTimeout(function(){ 
+        var el = g('q-' + nextId); 
+        if (el) el.scrollIntoView({behavior:'smooth',block:'start'}); 
+      }, 50);
+    }
+  }
 }
 
 function toggleCegas(){
