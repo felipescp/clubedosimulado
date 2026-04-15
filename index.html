@@ -188,24 +188,66 @@ body.dark #paste-area{background:#1e2128;border-color:#3a3d50;color:#e0e2ee}
   #sb-overlay.open { display: block; }
 }
 
-/* Estilo dos novos botões de navegação Mobile (< e >) */
-  .nav-toggle {
-    display: flex !important; position: fixed; bottom: 1.25rem; z-index: 290;
-    width: 44px; height: 44px; border-radius: 50%; color: #555; background: #fff;
-    border: 0.5px solid #ddd; font-size: 16px; font-weight: bold; cursor: pointer;
-    align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s ease;
+/* ── MODO FOCO (FOLHA CENTRAL) & BOTÕES PERMANENTES ── */
+body.force-mobile #barra1:not(.top-aberto), 
+body.force-mobile #barra2:not(.top-aberto) { display: none !important; }
+body.force-mobile.top-aberto #barra1, 
+body.force-mobile.top-aberto #barra2 { display: flex !important; }
+
+body.force-mobile { background: #ebebe6; }
+body.dark.force-mobile { background: #0a0b0e; }
+
+/* A "Folha de Papel" Centralizada no Desktop */
+@media (min-width: 701px) {
+  body.force-mobile #mc { 
+    max-width: 680px; 
+    margin: 0 auto; 
+    background: #fff;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 0 0 40px rgba(0,0,0,0.04);
+    padding: 3rem 2.5rem 7rem;
   }
-  body.dark .nav-toggle { background: #2a2d3a; border-color: #3a3d50; color: #a0a8c0; }
-  
-  /* Posicionamento centrado, lado a lado */
-  #nav-prev { right: 50%; margin-right: 5px; }
-  #nav-next { left: 50%; margin-left: 5px; }
+  body.dark.force-mobile #mc { background: #111318; border-color: #2e3140; }
+}
 
-  /* Lógica de Ocultação: Se o menu superior ou lateral abrir, oculta a navegação */
-  body.top-aberto .nav-toggle { opacity: 0; pointer-events: none; transform: translateY(20px); }
-  body.sb-aberta .nav-toggle { opacity: 0; pointer-events: none; transform: translateY(20px); }
+/* Gaveta Lateral (Menu de Questões) */
+body.force-mobile #sb { 
+  position: fixed; top: 0; bottom: 0; width: 320px; right: -340px; 
+  z-index: 250; border-left: none; background: #fff;
+  box-shadow: -4px 0 24px rgba(0,0,0,.15); transition: right 0.25s ease; transform: none;
+}
+body.dark.force-mobile #sb { background: #16181f; }
+body.force-mobile #sb.open { right: 0; }
 
+body.force-mobile #sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 240; }
+body.force-mobile #sb-overlay.open { display: block; }
+
+/* Botões ☰ e ⚙ no Modo Foco/Mobile */
+body.force-mobile #sb-toggle, body.force-mobile #top-toggle { 
+  display: flex !important; position: fixed; bottom: 1.5rem; z-index: 300; 
+  width: 52px; height: 52px; border-radius: 50%; color: #fff; border: none; font-size: 22px; cursor: pointer; 
+  align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.4); 
+}
+body.force-mobile #sb-toggle { right: 1.5rem; background: #4a6cf7; }
+body.force-mobile #top-toggle { left: 1.5rem; background: #f59e0b; }
+
+/* Botões de Navegação Permanentes (Sempre visíveis) */
+.nav-toggle { 
+  display: flex !important; 
+  position: fixed; bottom: 1.5rem; z-index: 290; 
+  width: 48px; height: 48px; border-radius: 50%; color: #555; background: #fff; 
+  border: 0.5px solid #ddd; font-size: 18px; font-weight: bold; cursor: pointer; 
+  align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+  transition: opacity 0.2s, transform 0.2s;
+}
+body.dark .nav-toggle { background: #2a2d3a; border-color: #3a3d50; color: #a0a8c0; }
+#nav-prev { right: calc(50% + 5px); }
+#nav-next { left: calc(50% + 5px); }
+body.top-aberto .nav-toggle, body.sb-aberta .nav-toggle { opacity: 0; pointer-events: none; transform: translateY(20px); }
+
+/* Escala Global */
+@media (min-width: 701px) { body { zoom: 1.2; } }
 
 
 body.dark #sb{background:rgba(20,22,30,.92);border-color:#2e3140}
@@ -397,6 +439,7 @@ body.dark .mod-exp-item:hover { border-color: #4a6cf7; }
   <label class="b1 b1-icon" style="cursor:pointer" title="Importar JSON">📥<input type="file" accept=".json" id="b1-import" style="display:none"></label>
   
 <div style="flex:1"></div> 
+  <button class="b1 b1-icon" id="b1-mobile" title="Modo Celular (Foco)">📱</button>
   <button class="b1 p b1-icon" id="b1-auto" title="Desativar Avanço Automático">⏩</button>
   <button class="b1 b1-icon" id="b1-cegas" title="Ativar Modo às Cegas">👁️</button>
   <button class="b1 b1-icon" id="b1-som" title="Ativar/Desativar Som">🔇</button>
@@ -531,7 +574,30 @@ function tocarFeedback(acertou) {
   }
 }
 
-
+// Lógica do Botão "Modo Celular" (Foco)
+  var btnMobile = g('b1-mobile');
+  if(btnMobile){
+    btnMobile.onclick = function(){
+      document.body.classList.toggle('force-mobile');
+      var isMob = document.body.classList.contains('force-mobile');
+      this.style.background = isMob ? '#4a6cf7' : '';
+      this.style.borderColor = isMob ? '#4a6cf7' : '';
+      this.style.color = isMob ? '#fff' : '';
+      fecharSb(); 
+      wsSet('clube_simulado_mobile', isMob ? 'on' : 'off');
+    };
+  }
+  
+  wsGet('clube_simulado_mobile').then(function(val){
+    if(val === 'on'){
+      document.body.classList.add('force-mobile');
+      if(btnMobile){
+        btnMobile.style.background = '#4a6cf7';
+        btnMobile.style.borderColor = '#4a6cf7';
+        btnMobile.style.color = '#fff';
+      }
+    }
+  });
 
 
 // ── STORAGE ────────────────────────────────────────────── //
@@ -674,7 +740,7 @@ window.addEventListener('load',function(){
     else if(a==='errostxt')exportarErrosTxt(i);
     else if(a==='refazer')refazerErradas(i);
   });
-  autoLoad(function(ok){
+autoLoad(function(ok){
     if(ok){
       renderTabs();
       if(SIMS[SI]&&SIMS[SI].stats){
@@ -685,13 +751,11 @@ window.addEventListener('load',function(){
         if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
         renderSessoes();
       }
-} else {
-        tela(null);g('tela-simulado').style.display='flex';
-        renderSim();renderNav();
-        if(QA)setQA(QA);else if(D.blocos[0]&&D.blocos[0].questoes[0])setQA(D.blocos[0].questoes[0].id);
-        renderSessoes();
-        setTimeout(function(){ if(g('mc')) g('mc').scrollTop = 0; }, 100);
-      }
+    } else {
+      // CORREÇÃO: Se não há cache, mostra a tela de configuração (e não a tela vazia!)
+      tela('tela-config');
+      renderSessoesConfig();
+    }
   });
 });
 
@@ -1078,11 +1142,11 @@ function selVF(qId,v){
     }
   });
   
-  var bc=g('bc-'+qId);
+var bc=g('bc-'+qId);
   if(bc){
     bc.disabled=false;
-    // Gatilho de rolagem isolado apenas para telas menores que 700px (Mobile)
-    if (window.innerWidth <= 700) {
+    // Rola a página no Mobile real OU no Modo Foco
+    if (window.innerWidth <= 700 || document.body.classList.contains('force-mobile')) {
       setTimeout(function(){ bc.scrollIntoView({behavior:'smooth', block:'center'}); }, 50);
     }
   }
